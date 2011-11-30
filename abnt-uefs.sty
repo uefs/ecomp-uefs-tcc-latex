@@ -1,12 +1,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Template de TCC baseado nas normas da ABNT voltado para alunos da UEFS
-%% Versão: 1.1
-%% Desenvolvimento: Danilo de Oliveira Gonçalves
-%% Adaptação final: João Carlos Nunes Bittencourt
-%% Data: 31/03/2011
-%% Obs.: Este arquivo contém as modificações necessárias para adequação aos
-%%       padrões adotados pelo curso de Engenharia de Computação da UEFS
+% Template de TCC baseado nas normas da ABNT voltado para alunos da UEFS
+% Versão: 2.0
+% Desenvolvimento: Danilo de Oliveira Gonçalves
+% Adaptação final: João Carlos Nunes Bittencourt
+% Data: 31/03/2011
+% Última atualização: 30/11/2011
+% Obs.: Este arquivo contém as modificações necessárias para adequação aos
+%       padrões adotados pelo curso de Engenharia de Computação da UEFS
+% 
+% Acrescentadas novas adaptações baseadas no modelo ABNT da UTFPR, desenvolvido
+% por Diogo Rosa Kuiaski <diogo.kuiaski@gmail.com> e Hugo Vieira Neto <hvieir@utfpr.edu.br>
+%
+% Sinta-se livre para melhorar este modelo, mas não se esqueça de
+% comunicar aos autores para que outras pessoas possam ter acesso
+% a essas melhorias. Sugestões também são bem-vindas.
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \NeedsTeXFormat{LaTeX2e}
 
 \RequirePackage{ifthen}
@@ -16,6 +26,89 @@
 \PassOptionsToClass{pagestart=firstchapter,chapter=TITLE,section=TITLE,tocpage=prefix,floatnumber=continuous}{abnt}
 
 \makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DEFINICOES DA UEFS
+
+\providecommand{\UEFSdepartamentodata}{}
+\newcommand{\departamento}[1]{\renewcommand{\UEFSdepartamentodata}{#1}}
+
+\providecommand{\UEFSgraduacaodata}{}
+\newcommand{\graduacao}[1]{\renewcommand{\UEFSgraduacaodata}{#1}}
+
+\providecommand{\UEFScursodata}{}
+\newcommand{\curso}[1]{\renewcommand{\UEFScursodata}{#1}}
+
+\providecommand{\UEFSareadata}{}
+\newcommand{\area}[1]{\renewcommand{\UEFSareadata}{#1}}
+
+\providecommand{\UEFSdocumentodata}{}
+\newcommand{\documento}[1]{\renewcommand{\UEFSdocumentodata}{#1}}
+
+\providecommand{\UEFSniveldata}{}
+\newcommand{\nivel}[1]{\renewcommand{\UEFSniveldata}{#1}}
+
+\providecommand{\UEFStitulacaodata}{}
+\newcommand{\titulacao}[1]{\renewcommand{\UEFStitulacaodata}{#1}}
+
+\providecommand{\UEFScitadata}{}
+\newcommand{\cita}[1]{\renewcommand{\UEFScitadata}{#1}}
+
+\providecommand{\UEFSsubtitulodata}{}
+\newcommand{\subtitulo}[1]{\renewcommand{\UEFSsubtitulodata}{#1}}
+
+\providecommand{\UEFStitledata}{}
+\renewcommand{\title}[1]{\renewcommand{\UEFStitledata}{#1}}
+
+\providecommand{\UEFSpalavraschavedata}{}
+\newcommand{\palavraschave}[1]{\renewcommand{\UEFSpalavraschavedata}{#1}}
+
+\providecommand{\UEFSkeywordsdata}{}
+\newcommand{\keywords}[1]{\renewcommand{\UEFSkeywordsdata}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPA
+
+\renewcommand{\capa}
+{
+	\begin{titlepage}
+		\begin{figure}[ht]
+		  \centering
+		  \includegraphics[width=0.08\linewidth]{Brasao_uefs.png}
+		\end{figure}\vspace{-1cm}
+		\begin{center}
+			\textbf{\normalsize\MakeUppercase{\ABNTinstituicaodata}}\\
+			\normalsize\MakeUppercase{\UEFSgraduacaodata}\par	
+		\end{center}		
+		\vspace{1cm}	
+		\begin{center}
+			\normalsize\MakeUppercase{\ABNTautordata}\par
+		\end{center}
+		\vspace{4.5cm}
+		\begin{center}
+			\normalsize\ABNTchapterfont\MakeUppercase{\ABNTtitulodata}\par
+			\ABNTifnotempty{\UEFSsubtitulodata}
+			{
+				\vspace{0.3cm}\ABNTchapterfont\MakeUppercase{\UEFSsubtitulodata}\par
+			}
+		\end{center}
+		\vspace{.5cm}
+		\begin{center}
+			\ABNTifnotempty{\UEFSniveldata}
+			{
+				\MakeUppercase{de \UEFSniveldata}\par
+			}
+		\end{center}
+		\vfill
+		\begin{center}
+			\textbf{\MakeUppercase{\ABNTlocaldata}}\par
+			\textbf{\ABNTdatadata}
+		\end{center}
+	\end{titlepage}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOLHA DE ROSTO
 
 \newcommand{\esporient}[2]{
 	\leftskip 0em
@@ -29,18 +122,23 @@
 	\advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
 	{#1#2\hfil}}
 
-\renewcommand{\folhaderosto}{
+\renewcommand{\folhaderosto}
+{
   \begin{titlepage}
     \espaco{1.1}
 
     \begin{center}
-	\large\ABNTchapterfont\ABNTautordata
+	\ABNTchapterfont\MakeUppercase\ABNTautordata
     \end{center}
 
     \vspace{7.5cm}
 
     \begin{center}
-	\large\ABNTchapterfont\ABNTtitulodata\par
+	\ABNTchapterfont\MakeUppercase\ABNTtitulodata\par
+	\ABNTifnotempty{\UEFSsubtitulodata}
+	{
+	  \vspace{0.3cm}\ABNTchapterfont\MakeUppercase{\UEFSsubtitulodata}\par
+	}
     \end{center}
 
     \vspace{2cm}
@@ -70,12 +168,269 @@
 \vfill
 
 \begin{center}
-	\textbf{\ABNTlocaldata}\par
-	\textbf{\ABNTdatadata}
+	\ABNTlocaldata\par
+	\ABNTdatadata
 \end{center}
 
 \end{titlepage}
 }% end of \folhaderosto
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TERMO DE APROVACAO
+
+\providecommand{\ABNTtextoaprovacaodata}{}
+\newcommand{\textoaprovacao}[1]{\renewcommand{\ABNTtextoaprovacaodata}{#1}}
+
+\providecommand{\ABNTprimeiroassinadata}{}
+\newcommand{\primeiroassina}[1]{\renewcommand{\ABNTprimeiroassinadata}{#1}}
+
+\providecommand{\ABNTsegundoassinadata}{}
+\newcommand{\segundoassina}[1]{\renewcommand{\ABNTsegundoassinadata}{#1}}
+
+\providecommand{\ABNTterceiroassinadata}{}
+\newcommand{\terceiroassina}[1]{\renewcommand{\ABNTterceiroassinadata}{#1}}
+
+\providecommand{\ABNTquartoassinadata}{}
+\newcommand{\quartoassina}[1]{\renewcommand{\ABNTquartoassinadata}{#1}}
+
+\providecommand{\ABNTlocaldiadata}{}
+\newcommand{\localdia}[1]{\renewcommand{\ABNTlocaldiadata}{#1}}
+
+\newcommand{\termodeaprovacao}
+{
+	\begin{titlepage}
+		\pretextualchapter{TERMO DE APROVA\c{C}\~AO}
+		\vspace{-0.25cm}
+		\begin{center}
+			\large\ABNTautordata
+		\end{center}
+		\vspace{0.75cm}
+		\begin{center}
+			\large\ABNTtitulodata
+		\end{center}
+		\vspace{0.75cm}
+		\begin{espacosimples}
+			\noindent\ABNTtextoaprovacaodata\par
+		\end{espacosimples}
+		\setlength{\ABNTsignthickness}{0.4pt}
+		\setlength{\ABNTsignskip}{1.75cm}
+		\ABNTifnotempty{\ABNTprimeiroassinadata}%
+		{
+		\begin{center}
+			\vspace{-0.5cm}
+			\assinatura{\ABNTprimeiroassinadata}
+		\end{center}
+		}
+		\ABNTifnotempty{\ABNTsegundoassinadata}%
+		{
+		\begin{center}
+			\vspace{-0.5cm}
+			\assinatura{\ABNTsegundoassinadata}
+		\end{center}
+		}
+		\ABNTifnotempty{\ABNTterceiroassinadata}%
+		{
+		\begin{center}
+			\vspace{-0.5cm}
+			\assinatura{\ABNTterceiroassinadata}
+		\end{center}
+		}
+		\ABNTifnotempty{\ABNTquartoassinadata}%
+		{%
+		\begin{center}
+			\vspace{-0.5cm}
+			\assinatura{\ABNTquartoassinadata}
+		\end{center}
+		}
+		\vfill
+		\begin{center}
+			\ABNTlocaldiadata
+		\end{center}
+	\end{titlepage}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   DEDICATORIA  
+
+\newenvironment{dedicatoria}%
+{%
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\setchaptertype{}
+	\pretextualchapter{}
+	\vfill
+	\begin{flushright}
+		\begin{minipage}{.50\textwidth}
+			\begin{espacosimples}%
+				\setlength\parindent{0pt}
+				\setlength\parskip{12pt}
+}%
+{
+			\end{espacosimples}
+		\end{minipage}
+	\end{flushright}
+	\newpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AGRADECIMENTOS 
+
+\newenvironment{agradecimentos}%
+{%
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\setchaptertype{}
+	\pretextualchapter{AGRADECIMENTOS}%
+}%
+{
+	\newpage
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LISTA DE FIGURAS
+
+% Cria um comando auxiliar para montagem da lista de figuras
+\newcommand{\figfillnum}[1]
+{%
+  {\hspace{0.3em}\normalfont\dotfill}\nobreak % era \hspace{1em}
+  \hb@xt@\@pnumwidth{\hfil\normalfont #1}{}\par
+}
+
+% Altera a forma de montagem da lista de figuras
+\renewcommand{\listadefiguras}
+{
+	\ifthenelse{\boolean{@twocolumn}}
+		{\setboolean{ABNTrestorecol}{true}\onecolumn}
+		{\setboolean{ABNTrestorecol}{false}}
+	\setchaptertype{listoffigures}
+	\pretextualchapter{LISTA DE FIGURAS}
+	\@starttoc{lof}
+	\ifthenelse{\boolean{ABNTrestorecol}}
+		{\twocolumn}
+		{}
+}
+
+\renewcommand*{\l@figure}[2]{
+	\leftskip 3.1em
+	\rightskip 1.6em
+	\parfillskip -\rightskip
+	\parindent 0em
+	\@tempdima 2.0em
+	\advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+	{Figura \normalfont #1}\nobreak \figfillnum{#2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LISTA DE TABELAS
+
+% Cria um comando auxiliar para montagem da lista de tabelas
+\newcommand{\tabfillnum}[1]{%
+	{\hspace{0.3em}\normalfont\dotfill}\nobreak % era \hspace{1em}
+	\hb@xt@\@pnumwidth{\hfil\normalfont #1}{}\par}
+
+% Altera a forma de montagem da lista de tabelas
+\renewcommand{\listadetabelas}
+{
+	\ifthenelse{\boolean{@twocolumn}}
+		{\setboolean{ABNTrestorecol}{true}\onecolumn}
+		{\setboolean{ABNTrestorecol}{false}}
+	\setchaptertype{listoftables}
+	\pretextualchapter{LISTA DE TABELAS}
+	\@starttoc{lot}
+	\ifthenelse{\boolean{ABNTrestorecol}}
+		{\twocolumn}
+		{}
+}%
+
+\renewcommand*{\l@table}[2]{
+	\leftskip 3.4em
+	\rightskip 1.6em
+	\parfillskip -\rightskip
+	\parindent 0em
+	\@tempdima 2.0em
+	\advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+	{Tabela \normalfont #1}\nobreak \tabfillnum{#2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LISTA DE SÍMBOLOS
+
+% Define os comandos que montam a lista de símbolos
+\newcommand{\listadesimbolos}
+{
+	\pretextualchapter{LISTA DE S\'IMBOLOS}\@starttoc{lsb}
+}
+
+\newcommand{\simbolo}[2]
+{
+	{\addcontentsline{lsb}{simbolo}{\numberline{#1}{#2}}}#1
+}
+
+\newcommand{\l@simbolo}[2]
+{
+	\vspace{-0.75cm}
+	\leftskip 0em
+	\parindent 0em
+	\@tempdima 5em
+	\advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+	{\normalfont #1}\hfil\nobreak\par
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LISTA DE SIGLAS
+
+% Define o comando que monta a lista de siglas
+\newcommand{\listadesiglas}
+{
+      \pretextualchapter{LISTA DE SIGLAS}\@starttoc{lsg}
+}
+\newcommand{\sigla}[2]{
+      {\addcontentsline{lsg}{sigla}{\numberline{#1}{#2}}}#1
+}
+
+\newcommand{\l@sigla}[2]
+{
+	\vspace{-0.75cm}
+	\leftskip 0em
+	\parindent 0em
+	\@tempdima 5em
+	\advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+	{\normalfont #1}\hfil\nobreak\par
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RESUMO
+
+\renewenvironment{resumo}%
+{%
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\setchaptertype{resumo}
+	\pretextualchapter{\MakeUppercase{\resumoname}}%
+	\begin{espacosimples}%
+		\setlength\parindent{0pt}
+		\setlength\parskip{12pt}
+}%
+{
+		\par \textbf{Palavras-chave:} \UEFSpalavraschavedata
+	\end{espacosimples}
+	\newpage
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ABSTRACT
+ 
+\renewenvironment{abstract}%
+{%
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\setchaptertype{abstract}
+	\pretextualchapter{\MakeUppercase{\ABNTabstractname}}%
+	\begin{espacosimples}%
+		\setlength\parindent{0pt}
+		\setlength\parskip{12pt}
+}%
+{
+		\par \textbf{Keywords:} \UEFSkeywordsdata
+		\end{espacosimples}
+	\newpage
+}
 
 % Defining how is typeset the \chapter
 \def\@makechapterhead#1{%
@@ -84,7 +439,7 @@
   \textbf{\thechapter\hspace{2ex}\MakeUppercase{#1}}
   \par
   }%
-  \vspace{5.0em}
+  \vspace{6em}
 }
 
 % Defining how is typeset the \chapter*
@@ -97,47 +452,162 @@
   \vspace{\baselineskip}
 }
 
-%teste com o tamanho dos titulos
+%Altera forma de montagem das secoes
+\renewcommand{\l@section}[2]
+{
+	\ifnum \c@tocdepth >\m@ne
+		\addpenalty{-\@highpenalty}%
+		\setlength\@tempdima{2em}%
+		\begingroup
+			\ifthenelse{\boolean{ABNTpagenumstyle}}
+				{\renewcommand{\@pnumwidth}{1em}}
+				{}
+			\parindent \z@ \rightskip \@pnumwidth
+			\parfillskip -\@pnumwidth
+			\advance\leftskip\@tempdima
+			\hskip -\leftskip
+			\MakeUppercase{#1}\nobreak\dotfill\nobreak%
+			\hb@xt@\@pnumwidth{\hss{#2}}
+			\begin{spacing}{\taxaespacomeio}\par\end{spacing}
+			\penalty\@highpenalty
+		\endgroup
+	\fi
+}
 
-\renewcommand\section{\ABNTstartsection{section}{2}{\z@}%
-                           {-3.0ex \@plus -0ex \@minus -0.0ex}%
-                           {2.0ex \@plus .0ex}%
-                           {\espaco{duplo}\bfseries%
-                            \ABNTsectionfont\normalsize}}
-\renewcommand\subsection{\ABNTstartsection{subsection}{3}{\z@}%
-                           {-3.0ex\@plus -0ex \@minus -.0ex}%
-                           {2.0ex \@plus .0ex}%
-                           {\espaco{duplo}\normalfont%
-                            \ABNTsectionfont\normalsize}}
-\renewcommand\subsubsection{\ABNTstartsection{subsubsection}{4}{\z@}%
-                           {-3.0ex\@plus -0ex \@minus -.0ex}%
-                           {2.0ex \@plus .0ex}%
-                           {\espaco{duplo}\normalfont%
-                            \ABNTsectionfont\normalsize}}
+%Altera forma de montagem das subsecoes
+\renewcommand{\l@subsection}[2]
+{
+	\ifnum \c@tocdepth >\m@ne
+		\addpenalty{-\@highpenalty}%
+		\setlength\@tempdima{2.5em}%
+		\begingroup
+			\renewcommand{\@pnumwidth}{1em}
+			\parindent \z@ \rightskip \@pnumwidth
+			\parfillskip -\@pnumwidth
+			\advance\leftskip\@tempdima
+			\hskip -\leftskip
+			#1\nobreak\dotfill\nobreak%
+			\hb@xt@\@pnumwidth{\hss{#2}}
+			\begin{spacing}{\taxaespacomeio}\par\end{spacing}
+			\penalty\@highpenalty
+		\endgroup
+	\fi
+}
 
-%termino do teste dos tamanhos
+%Altera forma de montagem das subsubsecoes
+\renewcommand{\l@subsubsection}[2]
+{
+	\ifnum \c@tocdepth >\m@ne
+		\addpenalty{-\@highpenalty}%
+		\setlength\@tempdima{3em}%
+		\begingroup
+			\renewcommand{\@pnumwidth}{1em}
+			\parindent \z@ \rightskip \@pnumwidth
+			\parfillskip -\@pnumwidth
+			\advance\leftskip\@tempdima
+			\hskip -\leftskip
+			#1\nobreak\dotfill\nobreak%
+			\hb@xt@\@pnumwidth{\hss{#2}}
+			\begin{spacing}{\taxaespacomeio}\par\end{spacing}
+			\penalty\@highpenalty
+		\endgroup
+	\fi
+}
 
-% Altera o tamanho das fontes dos cap?tulos e dos ap?ndices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPITULOS
+
+% Altera o tamanho das fontes
 \renewcommand{\ABNTchapterfont}{\bfseries}
-\renewcommand{\ABNTchaptersize}{\normalsize} %era Large / normalsize
-\renewcommand{\ABNTanapsize}{\normalsize}%era Large / normalsize
-
-
-% Novo...
-\renewcommand{\ABNTsectionfont}{\bfseries}
+\renewcommand{\ABNTchaptersize}{\normalsize}
+\renewcommand{\ABNTsectionfont}{\normalfont}
 \renewcommand{\ABNTsectionfontsize}{\normalsize}
 \renewcommand{\ABNTsubsectionfont}{\normalfont}
 \renewcommand{\ABNTsubsectionfontsize}{\normalsize}
 \renewcommand{\ABNTsubsubsectionfont}{\normalfont}
 \renewcommand{\ABNTsubsubsectionfontsize}{\normalsize}
+\renewcommand{\ABNTanapsize}{\normalsize}
 
-% Ajuste de tabulação
-\setlength{\parindent}{1.25cm}
-\setlength{\parskip}{0.0cm}
+% Altera titulo das subsecoes (lowercase)
+\def\ABNTsect#1#2#3#4#5#6[#7]#8{%
+  \ifnum #2>\c@secnumdepth
+    \let\@svsec\@empty
+  \else
+    \refstepcounter{#1}%
+    \protected@edef\@svsec{\@seccntformat{#1}\relax}%
+  \fi
+  \@tempskipa #5\relax
+  \ifdim \@tempskipa>\z@
+    \begingroup
+      #6{%
+        \@hangfrom{\hskip #3\relax\@svsec}%
+          \interlinepenalty \@M
+					\ifnum #2<\c@secnumdepth%
+	          \ifthenelse{\boolean{ABNTcapsec}}
+	             {\MakeUppercase{#8}}{#8}\@@par%
+					\else%
+	             {#8}\@@par% lowercase
+					\fi}%
+    \endgroup
+    \@ifundefined{ABNT#1mark}{}{\csname ABNT#1mark\endcsname{#7}}
+    \ABNTaddcontentsline{toc}{#1}{%
+      \ifnum #2>\c@secnumdepth \else
+        \protect\numberline{\csname the#1\endcsname}%
+      \fi
+      #7}%
+  \else
+    \def\@svsechd{%
+      #6{\hskip #3\relax
+      \@svsec \ifthenelse{\boolean{ABNTcapsec}}
+             {\MakeUppercase{#8}}{#8}}%
+      \@ifundefined{ABNT#1mark}{}{\csname ABNT#1mark\endcsname{#7}}
+      \ABNTaddcontentsline{toc}{#1}{%
+        \ifnum #2>\c@secnumdepth \else
+          \protect\numberline{\csname the#1\endcsname}%
+        \fi
+        #7}}%
+  \fi
+  \@xsect{#5}}
 
-\setboolean{ABNTcapchap}{true} % deixou os títulos das seções em maiúsculo
-\setboolean{ABNTCapAnnexAppendix}{true} %nao tinha essa linha
-\setboolean{ABNTpagenumstyle}{false} %nao tinha essa linha
+%\setboolean{ABNTcapchap}{true} % deixou os títulos das seções em maiúsculo
+\setboolean{ABNTCapAnnexAppendix}{true} % nao tinha essa linha
+\setboolean{ABNTpagenumstyle}{false} % nao tinha essa linha
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUMÁRIO
+
+%Altera o espaçamento entre dots
+\renewcommand\@dotsep{2}
+
+%Altera forma de montagem do table of contents
+\renewcommand\l@chapter[2]
+{
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \ifthenelse{\boolean{ABNTpagenumstyle}}
+        {\renewcommand{\@pnumwidth}{3.5em}}%alterei aqui pra testar de 3.5
+        {}
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \normalsize\ABNTtocchapterfont
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\dotfill \nobreak%
+      \ifthenelse{\boolean{ABNTpagenumstyle}}
+         {%
+          \hb@xt@\@pnumwidth{\hss
+            \ifthenelse{\not\equal{#2}{}}{{\normalfont \thinspace#2}}{}}\par
+         }
+         {%
+          \hb@xt@\@pnumwidth{\hss #2}\par
+         }
+      \penalty\@highpenalty
+    \endgroup
+  \fi
+}
 
 % MUDA OS CAPÍTULOS PARA FICAREM EM MAIÚSCULO NO SUMÁRIO
 \let \oldchap=\chapter{}
@@ -171,94 +641,21 @@
 \newcommand\SubSubSectS[1]{\oldsubsubsect*{\MakeUppercase{#1}}}
 \newcommand\SubSubSect[2][]{\oldsubsubsect[\MakeUppercase{#1}]{\MakeUppercase{#2}}}
 
-%Altera o espa?amento entre dots
-\renewcommand\@dotsep{2}
-
-%Altera forma de montagem do table of contents
-\renewcommand\l@chapter[2]{
-  \ifnum \c@tocdepth >\m@ne
-    \addpenalty{-\@highpenalty}%
-    \vskip 1.0em \@plus\p@
-    \setlength\@tempdima{1.5em}%
-    \begingroup
-      \ifthenelse{\boolean{ABNTpagenumstyle}}
-        {\renewcommand{\@pnumwidth}{3.5em}}%alterei aqui pra testar de 3.5
-        {}
-      \parindent \z@ \rightskip \@pnumwidth
-      \parfillskip -\@pnumwidth
-      \leavevmode \normalsize\ABNTtocchapterfont
-      \advance\leftskip\@tempdima
-      \hskip -\leftskip
-      #1\nobreak\dotfill \nobreak%
-      \ifthenelse{\boolean{ABNTpagenumstyle}}
-         {%
-          \hb@xt@\@pnumwidth{\hss
-            \ifthenelse{\not\equal{#2}{}}{{\normalfont \thinspace#2}}{}}\par
-         }
-         {%
-          \hb@xt@\@pnumwidth{\hss #2}\par
-         }
-      \penalty\@highpenalty
-    \endgroup
-  \fi}
-
 \renewcommand*\l@section{\@dottedtocline{1}{0em}{2.3em}}
 \renewcommand*\l@subsection{\@dottedtocline{2}{0em}{3.2em}}
 \renewcommand*\l@subsubsection{\@dottedtocline{3}{0em}{4.1em}}
 
-% Cria um comando auxiliar para montagem da lista de figuras
-\newcommand{\figfillnum}[1]{%
-  {\hspace{0.3em}\normalfont\dotfill}\nobreak % era \hspace{1em}
-  \hb@xt@\@pnumwidth{\hfil\normalfont #1}{}\par}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABULAÇÃO
 
-% Cria um comando auxiliar para montagem da lista de tabelas
-\newcommand{\tabfillnum}[1]{%
-	{\hspace{0.3em}\normalfont\dotfill}\nobreak % era \hspace{1em}
-	\hb@xt@\@pnumwidth{\hfil\normalfont #1}{}\par}
-
-% Altera a forma de montagem da lista de figuras
-\renewcommand*{\l@figure}[2]{
-	\leftskip 3.1em
-	\rightskip 1.6em
-	\parfillskip -\rightskip
-	\parindent 0em
-	\@tempdima 2.0em
-	\advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
-	{Figura \normalfont #1}\nobreak \figfillnum{#2}}
-
-% Altera a forma de montagem de lista de tabelas
-\renewcommand*{\l@table}[2]{
-	\leftskip 3.4em
-	\rightskip 1.6em
-	\parfillskip -\rightskip
-	\parindent 0em
-	\@tempdima 2.0em
-	\advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
-	{Tabela \normalfont #1}\nobreak \tabfillnum{#2}}
-
-% Define os comandos que montam a lista de s?mbolos
-\newcommand{\listadesimbolos}{\pretextualchapter{Lista de S?mbolos}\@starttoc{lsb}}
-\newcommand{\simbolo}[2]{{\addcontentsline{lsb}{simbolo}{\numberline{#1}{#2}}}#1}
-\newcommand{\l@simbolo}[2]{
-	\vspace{-0.75cm}
-	\leftskip 0em
-	\parindent 0em
-	\@tempdima 5em
-	\advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
-	{\normalfont #1}\hfil\nobreak\par}
-
-% Define o comando que monta a lista de siglas
-\newcommand{\listadesiglas}{\pretextualchapter{Lista de Siglas}\@starttoc{lsg}}
-\newcommand{\sigla}[2]{{\addcontentsline{lsg}{sigla}{\numberline{#1}{#2}}}#1}
-\newcommand{\l@sigla}[2]{
-	\vspace{-0.75cm}
-	\leftskip 0em
-	\parindent 0em
-	\@tempdima 5em
-	\advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
-	{\normalfont #1}\hfil\nobreak\par}
+% Ajuste de tabulação
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0.0cm}
 
 \newcommand{\SPACE}{\rule{0in}{3ex}} %% espaçamento entre linhas das tabelas
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ELEMENTOS DE LISTA
 
 \let\orig@Description =\description
 \def\Nospacing{\itemsep=1pt\topsep=0pt\partopsep=0pt%
@@ -278,14 +675,88 @@
 
 \renewenvironment{enumerate}{\orig@Enumerate\Nospacing}{\endlist}
 
+% Altera o espacamento das linhas dos capitulos e apendices
+\newcommand*{\taxaespacomeio}{.5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NUMERACAO
+
+% Define o tipo de numeracao de figuras, tabelas e equacoes
+\AddAbsoluteCounter{figure}
+\setcounter{absfigure}{0}
+\renewcommand{\thefigure}{\arabic{absfigure}}
+\AddAbsoluteCounter{table}
+\setcounter{abstable}{0}
+\renewcommand{\thetable}{\arabic{abstable}}
+\AddAbsoluteCounter{equation}
+\setcounter{absequation}{0}
+\renewcommand{\theequation}{\arabic{absequation}}
+
+% Define o tipo de numeracao das paginas
+\renewcommand{\chaptertitlepagestyle}{plain}
+
+% Altera a posicao da numeracao de paginas dos elementos pre-textuais
+\renewcommand{\pretextualchapter}
+{
+	\if@openright\cleardoublepage\else\clearpage\fi
+	\pagestyle{\chaptertitlepagestyle}
+	\global\@topnum\z@
+	\@afterindentfalse
+	\renewcommand{\thepage}{}
+	\@schapter
+}
+
+% Altera a posicao da numeracao de paginas dos elementos textuais
+\renewcommand{\ABNTchaptermark}[1]
+{
+	\ifthenelse{\boolean{ABNTNextOutOfTOC}}
+		{\markboth{\ABNTnextmark}{\ABNTnextmark}}
+		{\chaptermark{#1}
+	\pagestyle{\chaptertitlepagestyle}}
+}
+
+% Redefine o tipo de numeracao das paginas
+\renewcommand{\ABNTBeginOfTextualPart}
+{
+	\renewcommand{\chaptertitlepagestyle}{plainheader}
+	\renewcommand{\thepage}{\arabic{page}}
+	%\setcounter{page}{1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LEGENDAS 
+
+\newcommand{\captionfonts}{\small}
+
+\long\def\@makecaption#1#2{
+	\vskip\abovecaptionskip
+	\sbox\@tempboxa{{\captionfonts \textbf{#1: #2}}}%
+	\ifdim \wd\@tempboxa >\hsize
+		{\captionfonts \textbf{#1: #2}\par}
+	\else
+		\hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+	\fi
+	\vskip\belowcaptionskip
+}
+
+\newcommand{\fonte}[1]
+{
+	\begin{flushleft}
+		\begin{spacing}{\taxaespacomeio}
+			\par
+		\end{spacing}
+		\centering\small{\textbf{Fonte: #1}}
+	\end{flushleft}
+}
+
+\renewcommand{\fnum@figure}{\textbf{\figurename~\thefigure}}
+\renewcommand{\fnum@table}{\textbf{\tablename~\thetable}}
+
 \makeatother
-
-
 
 %Hifenização (adicionar até caber sem separar palavras) %Isso faz com que o Latex não separe sílabas.
 \hyphenpenalty=10000   \exhyphenpenalty=10000
 \sloppy
-
 
 \setcounter{secnumdepth}{5}
 \pagenumbering{arabic}
