@@ -10,25 +10,22 @@
 % TODO: Ajustar o espaçamento do cabeçalho do Apêndice e do Anexo.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\documentclass[12pt,a4paper,time,capchap,capsec,floatnumber=continuous,header=yes]{abnt}
-
-\usepackage{abnt-uefs} % Pacote de formatação da UEFS
+\documentclass{abnt-uefs} % Classe de formatação da UEFS
 \usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 \usepackage[call=authordata,alf,abnt-emphasize=bf,abnt-etal-text=emph,abnt-and-type=&,abnt-etal-list=3,abnt-etal-cite=3,recuo=0.0cm]{abntcite}
 \usepackage[brazil]{babel}
 \usepackage{mathptmx}
 \usepackage[pdftex]{graphicx}
-\usepackage[small,bf]{caption}
+%\usepackage[small,bf]{caption}
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{amssymb,amsmath,amsthm,amsfonts}
-\usepackage{textcomp}
-\usepackage{textcase} 
+%\usepackage{textcomp}
+%\usepackage{textcase} 
 \usepackage{float} % para as figuras ficarem onde foram colocadas no latex - deve colcoar na figura [H]
-\usepackage{longtable}
 \usepackage{color}
-\usepackage{url}
+%\usepackage{url}
 
 \graphicspath{{./figuras/}} % Diretório padrão de figuras.
 \input{pretextuais/capa} % Elementos da capa
@@ -58,7 +55,7 @@
     \bibliography{abnt-uefs}
     % Apêndice e Anexos
     \apendice
-    \input{postextuais/apendice}
+    %\input{postextuais/apendice}
     \anexo
-    \input{postextuais/anexo}
+    %\input{postextuais/anexo}
 \end{document} 
