@@ -101,11 +101,11 @@
 			\textbf{\normalsize\MakeUppercase{\ABNTinstituicaodata}}\\
 			\normalsize\MakeUppercase{\UEFSgraduacaodata}\par	
 		\end{center}		
-		\vspace{2.5cm}	
+		\vspace{3.5cm}	
 		\begin{center}
-			\normalsize\MakeUppercase{\ABNTautordata}\par
+			\textbf{\normalsize\MakeUppercase{\ABNTautordata}}\par
 		\end{center}
-		\vspace{3.0cm}
+		\vspace{2.0cm}
 		\begin{center}
 			\normalsize\ABNTchapterfont\MakeUppercase{\ABNTtitulodata}\par
 			\ABNTifnotempty{\UEFSsubtitulodata}
@@ -122,8 +122,8 @@
 		\end{center}
 		\vfill
 		\begin{center}
-			\textbf{\MakeUppercase{\ABNTlocaldata}}\par
-			\textbf{\ABNTdatadata}
+			\MakeUppercase{\ABNTlocaldata}\par
+			\ABNTdatadata
 		\end{center}
 	\end{titlepage}
 }
@@ -162,7 +162,7 @@
 	\ABNTchapterfont\MakeUppercase\ABNTtitulodata\par
 	\ABNTifnotempty{\UEFSsubtitulodata}
 	{
-	  \vspace{0.3cm}\ABNTchapterfont\MakeUppercase{\UEFSsubtitulodata}\par
+	  \ABNTchapterfont\MakeUppercase{\UEFSsubtitulodata}\par
 	}
     \end{center}
 
@@ -177,17 +177,17 @@
 
 \hspace{.35\textwidth}
 \begin{minipage}{.5\textwidth}
-	\begin{espacosimples}
+	%\begin{espacosimples}
 		\esporient{\numberline {Orientador:}}{\ignorespaces\ABNTorientadordata}
-	\end{espacosimples}
+	%\end{espacosimples}
 \end{minipage}
 
 \ABNTifnotempty{\ABNTcoorientadordata}{
 	\hspace{.35\textwidth}
 	\begin{minipage}{.5\textwidth}
-		\begin{espacosimples}
+		%\begin{espacosimples}
 			\espcoorient{\numberline {Co-Orientador:}}{\ignorespaces\ABNTcoorientadordata}
-		\end{espacosimples}
+		%\end{espacosimples}
 	\end{minipage}}
 
 \vfill
@@ -200,8 +200,8 @@
 	\end{center}
 	\vfill
 	\begin{center}
-		\textbf{\MakeUppercase{\ABNTlocaldata}}\par
-		\textbf{\ABNTdatadata}
+		\MakeUppercase{\ABNTlocaldata}\par
+		\ABNTdatadata
 	\end{center}
 
 \end{titlepage}
@@ -637,7 +637,7 @@
 \def\AppendToList#1{%
   \@for\next:=#1\do
   {\expandafter\let\csname List@\detokenize\expandafter{\next}\endcsname\empty}}
-\AppendToList{a,is,of,de,do,da,em,para}
+\AppendToList{a,is,of,de,do,da,em,para,e,um,uma}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CAPITULOS
