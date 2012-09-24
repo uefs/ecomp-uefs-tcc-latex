@@ -637,7 +637,7 @@
 \def\AppendToList#1{%
   \@for\next:=#1\do
   {\expandafter\let\csname List@\detokenize\expandafter{\next}\endcsname\empty}}
-\AppendToList{a,is,of,de,do,da,em,para,e,um,uma}
+\AppendToList{a,is,of,de,do,da,em,para,e,um,uma,dos,das, seu, sua, seus, suas}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CAPITULOS
