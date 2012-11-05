@@ -27,7 +27,7 @@
 \RequirePackage{xparse}
 \RequirePackage{url}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[latin1]{inputenc}
+\RequirePackage[utf8]{inputenc}
 \RequirePackage{supertabular} % pacote necessário para quebrar tabela de simbolos em páginas
 \RequirePackage{remreset} % remover reset na contagem (chapter)
 %\RequirePackage{listings} %pacote para algoritmos
