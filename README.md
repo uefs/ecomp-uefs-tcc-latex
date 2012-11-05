@@ -15,6 +15,11 @@ Quer ajudar!? Entre em contato conosco.
 
 # Instalando
 
+## No Ubuntu
+
+Estas instruções foram testadas no Ubuntu 12.04, mas devem funcionar para outras versões. Execute:
+
+    sudo apt-get install abntex texlive-latex-extra texlive-latex3
 
 ## No Fedora 17
 
