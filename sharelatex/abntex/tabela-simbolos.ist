@@ -1,0 +1,17 @@
+% $Header: /home/cvsroot/abntex/texmf/makeindex/abntex/tabela-simbolos.ist,v 1.2 2003/10/03 08:50:59 gweber Exp $
+item_0  ""
+item_1  ""
+item_2  ""
+item_01 ""
+item_12 ""
+item_x1 ""
+item_x2 ""
+delim_0 "\\TSStextpagesep{}"
+preamble ""
+postamble ""
+group_skip ""
+encap_suffix "}\\\\\n"
+headings_flag 0
+line_max 132
+indent_space ""
+indent_length 0

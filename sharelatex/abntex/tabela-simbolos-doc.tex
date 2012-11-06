@@ -1,0 +1,326 @@
+%% $Id: tabela-simbolos-doc.tex,v 1.10 2006/09/09 23:42:09 gweber Exp $
+%% Copyright 2003-2006 by the abnTeX group at http://codigolivre.org.br/projects/abntex
+%%
+%% Mantainer: Gerald Weber <gweber@codigolivre.org.br>
+%%
+%% This file is distributed under the Free Document License (FDL) http://www.gnu.org/licenses/fdl.html
+%%
+
+\documentclass[espacosimples]{abnt}
+
+%\ifx\pdfoutput\undefined
+%\else
+%from /usr/share/texmf/doc/pdftex/base/pdftexman.pdf
+%\pdfinfo{
+%  /Title        (Tabelas de simbolos via makeindex)
+%  /Author       (G. Weber - Grupo abnTeX)
+%  /Subject      (tabelas de simbolos)
+%  /Keywords     (simbolos, tabelas, makeindex)}
+%\fi
+
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{tabela-simbolos}
+\usepackage{supertabular}
+\usepackage[num]{abntcite}
+\def\Versao$#1 #2${#2}
+\def\Data$#1 #2 #3${#2}
+\def\DataCVS{\Data$Date: 2006/09/09 23:42:09 $}
+\def\VersaoCVS{\Versao$Revision: 1.10 $}
+\begin{document}
+
+
+\autor{G. Weber}
+\titulo{Tabelas de símbolos usando makeindex\\
+Versão \VersaoCVS}
+\comentario{Descreve como gerar tabelas de símbolos automatizadas via makeindex.}
+\instituicao{Grupo \abnTeX}
+\local{abntex.codigolivre.org.br}
+\data{\DataCVS}
+\capa \folhaderosto
+
+\sumario
+\listadesiglas
+\listadesimbolos
+
+\chapter{Introdução}
+
+Este manual discute o uso de listas de siglas e símbolos usando o programa
+{\tt makeindex}. A idéia basica é automatizar a geração destas listas.
+Este projeto teve início a partir de sugestões de Dornelles Vissotto Junior da
+UFPR.
+
+\section{Como usar}
+
+\subsection{No preâmbulo}
+
+Você deve chamar o pacote através do comando
+\begin{verbatim}
+\usepackage{tabela-simbolos}
+\end{verbatim}
+
+opções podem ser acrescentadas, por exemplo
+\begin{verbatim}
+\usepackage[caixa=Mm]{tabela-simbolos}
+\end{verbatim}
+neste caso os símbolos de letras maiúsculas são colocados antes dos símbolos
+de letras minúsculas.
+
+Para definir várias opções de uma vez, separe por vírgulas
+\begin{verbatim}
+\usepackage[romanos=2,gregos=3,simbolos=1]{tabela-simbolos}
+\end{verbatim}
+
+Veja as tabelas~\ref{opcoes}, \ref{opcoes-ordem} e~\ref{estilos} para outras opções.
+
+\begin{table}[p]
+\begin{center}
+\begin{tabular}{llp{0.7\textwidth}}\hline\hline
+opção & &\\ \hline
+{\tt paginas=} & & mostra ou não o número da página onde o símbolo foi definido.\\
+& \underline{\tt nao} & opção padrão.\\
+& {\tt sim} & mostra as páginas.\\
+\hline
+{\tt esquema=} && esquema em que as listas são ordenadas.\\
+& \underline{\tt separado}& separa símbolos romanos, gregos e outros.\\
+& {\tt misto}& mistura os símbolos\\
+\hline
+{\tt caixa=} & & controla o tratamento de letras minúsculas e maiúsculas.\\
+& \underline{\tt mM}& ordena todas as letras minúsculas \emph{antes} de todas as letra
+maiúsculas. Ex.: $a,b,c,d,A,B,C,D$\\
+& {\tt Mm}& ordena todas as letras minúsculas \emph{depois} de todas as letra
+maiúsculas.Ex.: $A,B,C,D,a,b,c,d$\\
+& {\tt mista}& mistura letras minúsculas e maiúsculas. Ex.: $a, A, b, B, c, C, d, D$\\
+\hline
+{\tt lista=} & & controla se a lista de símbolos são mostradas separadamente ou não.\\
+& \underline{\tt unica} & mostra uma única lista.\\
+& {\tt separada} & mostra as listas separadamente.\\
+\hline
+{\tt ordem=} & & controla o ordenamento das siglas e símbolos.\\
+& \underline{\tt alf} & ordenamento alfabético.\\
+& {\tt oc} & ordena na mesma sequência em que ocorre no texto.\\
+\hline\hline
+\end{tabular}
+\caption{Opções para o pacote {\tt tabela-simbolos}.}
+\label{opcoes}
+\end{center}
+\end{table}
+
+\begin{table}[p]
+\begin{center}
+\begin{tabular}{llp{0.7\textwidth}}\hline\hline
+opção & &\\ \hline
+{\tt romanos=} & & ordem de aparecimentos da lista de símbolos romanos.\\
+{\tt gregos=} & & ordem de aparecimentos da lista de símbolos gregos.\\
+{\tt simbolos=} & & ordem de aparecimentos da lista de outros símbolos.\\
+& {\tt 1}& aparece em primeiro lugar.\\
+& {\tt 2}& aparece em segundo.\\
+& {\tt 3}& aparece em terceiro lugar.\\
+& & O padrão é {\tt romanos=1}, {\tt gregos=2}, {\tt simbolos=3}. Se
+houver alguma inconsistência o pacote reverte automaticamente para a
+definição padrão.\\
+\hline\hline
+\end{tabular}
+\caption{Opções de ordenamento para o o pacote {\tt tabela-simbolos}.}
+\label{opcoes-ordem}
+\end{center}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{llp{0.7\textwidth}}\hline\hline
+opção & &\\ \hline
+{\tt estilo=} & & seleciona automaticamente as opções mais compatíveis com
+                 um dado estilo.\\
+& \underline{\tt 14724:2001} & segue a `norma' da referência~\citeonline{NBR14724:2001}.
+Equivale a {\tt paginas=sim}, {\tt ordem=oc}, {\tt esquema=misto}, {\tt caixa=mista},
+{\tt lista=unica}.\\
+& {\tt UFPR} & o padrão equivale ao que se pede na UFPR. Equivale
+a {\tt paginas=nao}, {\tt ordem=alf} , {\tt esquema=separado} , {\tt caixa=mM},
+{\tt lista=unica}, {\tt romanos=1}, {\tt gregos=2}, {\tt simbolos=3}.\\
+\hline\hline
+\end{tabular}
+\caption{Estilos pré-definidos.}
+\label{estilos}
+\end{center}
+\end{table}
+
+\subsection{No texto}
+
+\subsubsection{Definindo a posição das listas}
+
+As listas são geradas pelos comandos
+\begin{verbatim}
+\listadesiglas
+\listadesimbolos
+\end{verbatim}
+Se você estiver usando a classe {\tt abnt}\cite{abnt-classe-doc} a posição recomendada é logo
+após o comando \verb+\sumario+.
+
+\subsubsection{Definindo os símbolos}
+
+No texto você deve definir os símbolos usando os comandos \verb+\sigla+,\verb+\simbolo+,
+\verb+\simbologrego+ e \verb+simbolomisc+ para símbolos romanos, gregos e outros.
+Para símbolos de letras maiúsculas use \verb+\Simbolo+ e \verb+\Simbologrego+.
+Por exemplo,
+\begin{verbatim}
+\sigla{OMC}{Organização Mundial do Comércio}
+\simbolo{r}{raio}
+\simbologrego{\alpha}{coeficiente de dilatação térmica}
+\simbolomisc{'}{derivada primeira}
+\Simbolo{R}{raio}
+\Simbologrego{\Omega}{Resistência}
+\end{verbatim}
+todos os símbolos são formatados automaticamente em modo matemático.
+No caso de formatações especiais use o parâmetro opcional, como nos
+exemplos abaixo
+\begin{verbatim}
+\simbolomisc[${\sf 0}$]{0}{matriz nula}
+\Simbolo[$\bf R$]{R}{vetor raio}
+\simbolomisc[$\frac{\partial}{\partial x}$]{parcial}{drivada parcial%
+ em relação a $x$}
+\end{verbatim}
+Neste caso o parâmetro opcional entre [] vai ser usado para a formatação exata
+enquanto o parâmetro seguinte será usado apenas fins de ordenamento alfabético.
+
+\section{Execução}
+
+Na execução do \LaTeX\ são gerados até seis índices: {\tt .siglax},
+{\tt .romanlowx}, {\tt .romanuppx}, {\tt .greeklowx}, {\tt .greekuppx},
+{\tt .miscelanx} ou {\tt .symbolsx}. 
+Para cada um deles execute {\tt makeindex}:
+\begin{verbatim}
+makeindex -s tabela-simbolos.ist -o arquivo.symbols arquivo.symbolsx
+\end{verbatim}
+onde {\tt arquivo} é o nome do seu arquivo \LaTeX.
+Para Linux existe um bash script {\tt geratss} que automatiza este processo:
+\begin{verbatim}
+geratss arquivo
+\end{verbatim}
+após a geração dos índices, execute \LaTeX\ novamente.
+
+\section{Alterando os textos pré-definidos}
+
+Altere os textos pré-definidos através do comando \verb+\renewcommand+
+\begin{verbatim}
+\renewcommand{\listofsymbolsname}{Símbolos usados neste trabalho}
+\end{verbatim}
+Veja a tabela~\ref{textos} para a lista completa de textos pré-definidos.
+
+\section{Alterando as larguas pré-definidas}
+
+A largura da parte textual das listas podem ser alteradas, por exemplo
+\begin{verbatim}
+\renewcommand{\abrevtablewidth}{6cm}
+\end{verbatim}
+Veja a tabela~\ref{textos} para a lista completa de larguas pré-definidas.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{ll}\hline\hline
+comando & significado atual\\ \hline
+\verb+\listofabreviationsname+ & \emph{Lista de abreviaturas e siglas}\\
+\verb+\listofsymbolsname+ & \emph{Lista de símbolos}\\
+\verb+\romansymbolsname+ & \emph{Símbolos romanos}\\
+\verb+\greeksymbolsname+ & \emph{Símbolos gregos}\\
+\verb+\othersymbolsname+ & \emph{Outros símbolos}\\ \hline
+\verb+\abrevtablewidth+ & \verb+0.7\textwidth+\\
+\verb+\abrevcolumns+ & \verb+lp{\abrevtablewidth}l+\\
+\verb+\Babrevtable+ & \verb+\begin{center}\begin{tabular}{\abrevcolumns}+\\
+\verb+\Eabrevtable+ & \verb+\end{tabular}\end{center}+\\
+\verb+\symboltablewidth+ & \verb+0.7\textwidth+\\
+\verb+\symbolcolumns+ & \verb+lp{\symboltablewidth}l+\\
+\verb+\Bsymboltable+ & \verb+\begin{center}\begin{tabular}{\symbolcolumns}+\\
+\verb+\Esymboltable+ & \verb+\end{tabular}\end{center}+\\
+\hline\hline
+\end{tabular}
+\caption{Textos,larguras e comandos pré-definidos.}
+\label{textos}
+\end{center}
+\end{table}
+
+
+\section{Alterações mais sofisticadas}
+
+Esta seção dá uma idéia geral de como realizar alterações mais sofisticadas.
+Os exemplos aqui apresentados não foram exaustivamente testados.
+
+\subsection{Alterando as colunas das tabelas}
+
+As tabelas de siglas e símbolos foram implementados com o ambiente {\tt tabular}
+em três colunas. Por exemplo, para alterar as colunas da tabela de siglas para 3 colunas centradas
+use
+\begin{verbatim}
+\renewcommand{\abrevcolumns}{ccc}
+\end{verbatim}
+Para alterar as colunas da lista de símbolos altere \verb+\symbolcolumns+.
+
+\subsection{Alterando o número de colunas}
+
+Você pode introduzir outras colunas, por exemplo para ter uma coluna com
+as unidades dos símbolos.
+Proceda seguinte maneira: altere as colunas,
+\begin{verbatim}
+\renewcommand{\symbolcolumns}{llp{\symboltablewidth}l}
+\end{verbatim}
+Passe a chamar seus símbolos da seguinte maneira (exemplo)
+\begin{verbatim}
+\simbolo[$r$ & metro]{r}{raio}
+\end{verbatim}
+
+\subsection{Listas muito longas}
+
+Se você tiver listas muito longas pode valer a pena
+usar um ambiente diferente de {\tt table}.
+
+Para alguns tipos de tabela alternativos, como o {\tt superabular}, 
+basta carregar no preâmbulo
+\begin{verbatim}
+\usepackage{supertabular}
+\end{verbatim}
+e as tabelas são então todas redefinidas.
+
+Alternativamente, você deve fazer as seguintes redefinições.
+\begin{verbatim}
+\renewcommand{\Bsymboltable}{\begin{center}\begin{xxxxxtabular}{\abrevcolumns}}
+\renewcommand{\Esymboltable}{\end{supertabular}\end{center}}
+\end{verbatim}
+onde {\tt xxxxxtabular} é o novo ambiente de tabela.
+
+\section{Problemas conhecidos}
+
+\subsection{hyperref, pdflatex}
+
+Este estilo exige que se use {\tt hyperindex=false}, assim tanto
+o pacote hyperref como pdflatex funcionam corretamente.
+
+\subsection{Limitação no número de símbolos}
+
+Quando se usa a ordenação por ocorrências, o número de símbolos e siglas está limitado
+a 8999, o que acreditamos deva ser suficiente para efeitos práticos. 
+Veja também o bug 200435 gentilmente relatado por Davi Kikuchi.
+
+\sigla{OMC}{Organização Mundial do Comércio}
+\simbolo{r}{raio}
+\simbolomisc[${\sf 0}$]{0}{matriz nula}
+\simbolomisc{\nabla}{gradiente}
+\simbolo{r_i}{raio inicial}
+\Simbolo[$\bf R$]{R}{vetor raio}
+\simbolo{a_{jk}}{amplitudes de pequenas oscilações em modos normais}
+\simbologrego{\delta}{distância entre dois pontos}
+\Simbologrego{\Omega}{Resistência}
+\Simbolo[${\cal M}_{ij}$]{M_ij}{elemento de matriz do tensor de momento angular de um
+campo}
+\Simbolo{J_\phi,J_\theta,J_r}{variáveis de ação}
+\sigla{ABNT}{Associação Brasileira de Normas Técnicas}
+\sigla{Unicamp}{Universidade Estadual de Campinas}
+\simbolo{m}{massa}
+\Simbolo[$\sf M$]{M}{matriz jacobiana da transformação canônica}
+\simbologrego{\alpha}{coeficiente de dilatação térmica}
+\simbolomisc{'}{derivada primeira}
+\simbolomisc[$\frac{\partial}{\partial x}$]{parcial}{drivada parcial em relação a $x$}
+\sigla{MQW}{poço quântico múltiplo (múltiple quantum well)}
+
+\bibliography{normas,abntex-doc}
+
+\end{document}

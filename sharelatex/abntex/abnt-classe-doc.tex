@@ -1,0 +1,1475 @@
+% $Id: abnt-classe-doc.tex,v 1.15 2005/11/14 09:12:59 gweber Exp $
+% $Log: abnt-classe-doc.tex,v $
+% Revision 1.15  2005/11/14 09:12:59  gweber
+% Removed pdfinfo, added comment about utf8 alongside latin1.
+%
+% Revision 1.14  2005/07/13 20:45:31  gweber
+% Convertido com recode l1..tex para ficar independente de codificação (recode l1..tex)
+%
+% Copyright 2001-2005 abntex group
+% Revision 1.13  2004/07/12 09:49:12  gweber
+% Documentation now in abnt format, using bibtex for bibliography, latex2html commands removed, options revised
+%
+
+\documentclass[espaco=simples,appendix=Name]{abnt}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{hyperref}
+\usepackage[alf]{abntcite}
+\usepackage{mdwlist}
+\usepackage{dsfont}
+\def\Versao$#1 #2${#2}
+\def\Data$#1 #2 #3${#2}
+
+\newenvironment{descriptionit}%
+  {\begin{basedescript}{}%
+   \renewcommand{\makelabel}[1]{\textit{##1}}%
+  }
+  {\end{basedescript}}
+
+\newenvironment{descriptionittt}%
+  {\begin{basedescript}{}%
+   \renewcommand{\makelabel}[1]{\textit{\texttt{##1}}}}
+  {\end{basedescript}}
+
+\newenvironment{descriptiontt}%
+  {\begin{basedescript}{}%
+   \renewcommand{\makelabel}[1]{\texttt{##1}}}
+  {\end{basedescript}}
+
+\newenvironment{descriptionbf}%
+  {\begin{basedescript}{}%
+   \renewcommand{\makelabel}[1]{\textbf{##1}}}
+  {\end{basedescript}}
+
+\newcommand{\descrtype}{descriptionbf}
+
+\renewenvironment{description}%
+  {\expandafter\csname\descrtype\endcsname\edef\enddescrtype{end\descrtype}}
+  {\expandafter\csname\enddescrtype\endcsname}
+
+\makeatother
+
+\newcommand{\bibTeX}{bib\kern-.13ex\TeX}%
+\newcommand{\abnt}{{\smaller ABNT}}%
+\newcommand{\report}{{\smaller REPORT}}%
+\newcommand{\xypic}{X\hspace*{-.2ex}\raisebox{-.5ex}{Y}-pic}%
+\newcommand{\ac}{\symbol{123}}  % abre chaves
+\newcommand{\fc}{\symbol{125}}  % fecha chaves
+\newcommand{\bs}{\symbol{92}}   % barra invertida (backslash)
+
+\newcommand{\MakeIndex}{\textsl{MakeIndex}}
+
+\newcommand{\itemnorma}[1]{\textit{#1}}
+\newcommand{\ingles}[1]{\textsl{#1}}
+
+\autor{Miguel V. S. Frasson e Gerald Weber}
+\titulo{Classe  ABNT:  Confecção de trabalhos acadêmicos em \LaTeX\ segundo as normas ABNT\\
+Versão \Versao$Revision: 1.15 $}
+\comentario{Manual de uso da classe {\tt abnt} para \LaTeX. 
+Implementa a norma 14724.}
+\instituicao{Grupo \abnTeX}
+\local{abntex.codigolivre.org.br}
+\data{\Data$Date: 2005/11/14 09:12:59 $}
+\begin{document}
+\capa 
+\folhaderosto
+\sumario
+
+\chapter{Introdução}
+
+\textsl{Caro usuário}
+
+\noindent Se você tiver comentários, sugestões ou críticas referentes à
+classe ou aos estilos \bibTeX, por favor entre em contato com o grupo
+\abnTeX{} no Código Livre, através da nossa página
+\htmladdnormallink{\texttt{http://abntex.codigolivre.org.br}}{http://abntex.codigolivre.org.br}.
+Seu \ingles{feedback} é de grande ajuda para que possamos melhorar nosso
+trabalho.
+
+
+Dentre o que foi implementado por esta classe, destacamos
+
+\def\descrtype{descriptionit}
+\begin{description}
+
+\item[Folha de rosto e capa] Um mecanismo semelhante ao
+  \texttt{\bs maketitle} para sua folha de rosto e capa.
+
+\item[Resumo e abstract] Use os ambientes
+  \texttt{resumo} e 
+  \texttt{abstract} para a
+  correta formatação destas partes do texto. 
+  
+\item[Anexos e apêndices] Use os comandos \texttt{\bs anexo} ou
+  \texttt{\bs apendice}, e depois comandos \texttt{\bs chapter} para gerar
+  os títulos de anexos e apêndices.
+  Veja seção~\ref{subsec: format anexo apendice} para como personalizar
+  títulos destas partes. 
+  
+\item[Espaçamento entrelinhas] Este item é automaticamente
+  tratado pela classe, descrito em \cite{NBR14724:2001}.
+  
+\item[Numeração das páginas] Como descrito em
+  \cite[seção 5.4]{NBR14724:2001}, a partir da folha de rosto, todas as
+  páginas são contadas mas não numeradas, e a numeração aparece somente na
+  parte textual. Isso é feito pela classe. Outros estilos de numeração
+  serão discutidos na seção~\ref{subsec: numeracao das paginas}.
+  
+\item[Cabeçalhos de página] De acordo com a norma, a numeração da página
+  aparece no canto superior direito de todas as páginas a partir da parte
+  textual \cite[seção 5.4]{NBR14724:2001}. Veja
+  seção~\ref{subsec: cabecalhos de paginas} para detalhes.
+  
+\item[Títulos de capítulos e seções] De acordo com
+  \cite{NBR6024:1989}, o título das seções é alinhado à
+  esquerda com o texto, em fonte que enfatize a hierarquia das seções, com
+  seu indicativo (número) precedendo o título, na mesma linha. Nas seções
+  sem numeração, o título é centralizado. Um capítulo é uma seção primária.
+  
+\item[Sumário] Agora, todos os capítulos depois do sumário,
+  inclusive os sem numeração (gerados com \texttt{\bs chapter*}), aparecem
+  automaticamente no sumário. Isso inclui referências, índice remissivo,
+  capítulos e seções não numerados, etc. Os números de página seguem a
+  norma \cite{NBR6027:1989}.
+  
+%\item[Tabulação dos ``primeiros parágrafos''] Esta classe não omite a
+%  tabulação do primeiro parágrafo de capítulos e seções, salvo se o usuário
+%  o desejar.
+  
+%\item[Fórmulas em negrito] As fórmulas usadas em títulos de capítulos e
+%  seções acompanharão o estilo tipográfico dos mesmos, se usado o negrito.
+
+\end{description}
+
+Outras funcionalidades também foram implementadas, e serão discutidas a
+seguir. 
+
+\textbf{Obs.:} Os exemplos deste manual
+assumem que o pacote \texttt{inputenc}, com a opção \texttt{latin1} ou \texttt{utf8}, tenha
+sido carregado, para o uso de caracteres acentuados diretamente no arquivo \LaTeX.
+
+\chapter{Opções da classe}\label{sec: opcoes de classe}
+
+Para uma maior compatibilidade com pacotes existentes, a classe \abnt{} é
+apenas uma modificação da classe \ingles{standard} \report. Por isso, todas
+as opções da classe \report{} são suportadas. As opções \texttt{12pt} e
+\texttt{a4paper} são ativas \cite[5.1]{NBR14724:2001}, mas você tem a
+liberdade de usar qualquer outra opção da classe \report{} no comando
+\texttt{\bs documentclass[\textit{opções}]\ac abnt\fc}. Vale lembrar que,
+pela norma, a impressão é apenas em anverso (frente), com a excessão da
+folha de rosto, em cujo verso consta a \emph{ficha catalográfica}
+\cite[5.4]{NBR14724:2001}. 
+%Aqui, padrão significa ``valor
+%assumido por omissão''. Optamos por usar o termo em inglês por sua tradução
+%ser extensa.
+
+Todas as opções do \report{} estão presentes:
+\texttt{10pt},
+\texttt{11pt},  
+\texttt{12pt} (padrão);
+\texttt{a4paper} (padrão), 
+\texttt{a5paper}, 
+\texttt{b5paper},
+\texttt{letterpaper};
+\texttt{landscape};
+\texttt{titlepage} (padrão),
+\linebreak
+\texttt{notitlepage};
+\texttt{leqno}\footnote{Numeração das equações no lado esquerdo em vez do
+  direito.}; 
+\texttt{fleqn}\footnote{Equações em destaque alinhadas à esquerda em vez de
+  centralizadas.}; 
+\texttt{oneside} (padrão),
+\texttt{twoside};
+\texttt{openright} (padrão
+para impressão frente e verso), 
+\texttt{openany};
+\texttt{onecolumn} (padrão) e
+\texttt{twocolumn}. 
+
+Estão também definidas as seguintes opções.
+
+\def\descrtype{descriptiontt}
+\begin{description}
+  
+\item[pagestart=folhaderosto {\rm(padrão)}, pagestart=firstchapter, pagestart=sumario]\ \\
+  Estilo de paginação do documento. Explicado na
+  seção~\ref{subsec: numeracao das paginas}.
+
+\item[sumario=completo {\rm(padrão)}, sumario=incompleto]\ \\
+  Agora a maioria das estruturas incluem-se automaticamente no sumário.
+  Isso se aplica aos capítulos não numerados (\texttt{\bs chapter*}),
+  referências, índice remissivo, etc. Se você quiser \emph{não} incluir
+  algo, poderá desativar a auto inclusão com a opção
+  \texttt{sumario=incompleto} ou usar o comando
+  \texttt{\bs ProximoForaDoSumario}\footnote{Isso é útil, por exemplo, quando
+    se quer inserir quebras de linha no título de um
+    \texttt{\bs chapter*}. Inclua depois este capítulo no
+    sumário com
+    \texttt{\bs addcontentsline\ac toc\fc\ac chapter\fc\ac\textit{nome do capítulo}\fc}.}
+    antes de um capítulo ou seção. 
+
+\item[tocpage=prefix {\rm(padrão)}, tocpage=plain]\ \\
+  De acordo com a norma \cite{NBR6027:1989}, os números das páginas dos
+  ítens do sumário devem vir precedidos por ``p.''. Este comportamento é
+  ativo com a opção \texttt{tocabnt}, e desativado com
+  \texttt{tocpage=plain}.
+
+\item[floatnumber=continuous {\rm(padrão)}, floatnumber=chapter]\ \\
+  De acordo com a norma \cite{NBR14724:2001}, a numeração das figuras e
+  tabelas deve ser independente dos capítulos e seções. A opção
+  \texttt{floatnumber=chapter} faz com que tais numerações dependam dos
+  capítulos (o normal do \LaTeX).
+
+\item[appendix=NAME {\rm(padrão)}, appendix=Name, appendix=noname]\ \\ 
+  A norma dá a entender por um exemplo, mas \emph{não prescreve}, que
+  apareçam as palavras ``anexo'' e ``apêndice'' nos indicativos dessas
+  partes, que estas sejam maiúsculas. 
+\item[appendix=titlebox {\rm(padrão)}, appendix=nobox]\ \\
+  A norma dá a entender por um exemplo, mas \emph{não prescreve},
+  que após uma quebra de linha no
+  título, o texto fica alinhado com o final do indicativo.  
+  Veja seção~\ref{subsec: format anexo apendice} para detalhes. 
+  
+\item[espaco=simples, espaco=umemeio {\rm(padrão)}, espaco=duplo]\ \\
+  O espaçamento {1,5} (na realidade 1,35) é prescrito pela norma.
+  Leia a respeito na seção~\ref{subsec: espacamento entrelinhas}.
+
+\item[header=plain {\rm(padrão)}, header=normal, header=ruled, header=no]\ \\
+  Alguns estilos de cabeçalhos de página. Tratado na
+  seção~\ref{subsec: cabecalhos de paginas}.
+
+\item[chapter=Title {\rm(padrão)}, section=Title {\rm(padrão)}, chapter=TITLE, section=TITLE]\ \\
+  Colocam em maiúsculas os títulos dos capítulos/apêndices/anexos e seções,
+  respectivamente. No entanto, no sumário e cabeçalhos de página, as letras
+  não têm o tipo alterado. Note que \texttt{chapter=TITLE} implica também em
+  \texttt{appendix=NAME}.
+
+\item[boldmath=auto {\rm(padrão)}, boldmath=noauto]\ \\
+  A opção faz o modo matemático acompanhar o negrito do texto. Útil
+  especialmente em títulos de capítulos e seções. A opção \texttt{boldmath=noauto}
+  desativa este \ingles{auto bold math}.
+ 
+\item[font=times {\rm(padrão)}, font=plain]\ \\
+  Explicada na seção \ref{subsec: fontes}. Vale lembrar que as
+  normas \abnt{} não fazem referência a uma fonte específica.
+
+\item[indent=all {\rm(padrão)}, indent=firstonly]\ \\
+   A primeira linha de todos os parágrafos é tabulada.
+   O padrão do \LaTeX{} é tabular apenas o primeiro parágrafo de uma seção
+   (\texttt{indent=firstonly}).
+
+\end{description}
+
+\chapter{Partes}
+
+\section{Folha de rosto e capa}
+
+Os dados da capa e da folha de rosto devem aparecer em uma seqüência
+específica (ver seção~\ref{subsubsec: elementos pre-textuais}).
+Implementamos um mecanismo semelhante ao \texttt{\bs maketitle}. Você
+também tem a opção de não usar o nosso mecanismo (caso queira outro
+\ingles{layout}), como será explicado na
+seção~\ref{subsec: folha de rosto personalizada}. 
+
+\subsection{Comandos e \texttt{\bs folhaderosto} e \texttt{\bs capa}}
+ 
+%Implementamos um mecanismo semelhante ao \texttt{\bs maketitle} usual do
+%\LaTeX{}. Tinhamos somente como requisito a ordem dos elementos imposta na
+%norma. O \ingles{layout} estava livre e foi decidido pelo autor, na
+%tentativa de ter ``beleza'' como único critério (sugestões são
+%bem-vindas). Caso nãoestaja a contento, tente contruir livremente sua folha
+%de rosto ou capa dando uma lida na próxima seção.
+
+Para usar nossa folha de rosto, entre com as informações através dos
+seguintes comandos (todos com nomes em português, sem acentos): 
+
+{\setlength{\parskip}{2pt}
+\texttt{\bs autor\ac\textit{nome do autor}\fc}
+
+\texttt{\bs titulo\ac\textit{título}\fc}
+
+\texttt{\bs orientador[\textit{alternativa para
+    `Orientador:'}]\ac\textit{nome do orientador}\fc} 
+
+\texttt{\bs coorientador[\textit{alternativa para
+    `Co-orientador:'}]\ac\textit{nome do co-orientador}\fc}
+
+\texttt{\bs comentario\ac\textit{texto com a natureza e o objetivo do trabalho}\fc}
+
+\texttt{\bs instituicao\ac\textit{nome da instituição}\fc}
+
+\texttt{\bs local\ac\textit{local}\fc}
+
+\texttt{\bs data\ac\textit{data (ano do depósito)}\fc}
+}
+
+\noindent Depois disso, use os comandos
+
+\texttt{\bs capa} e \texttt{\bs folhaderosto} 
+
+\noindent logo após os comandos anteriores. A capa em geral não é
+necessária, já que a maioria das instituições a fornecerão. 
+Alguns comentários:
+
+\begin{itemize}
+
+\item O comando \texttt{\bs orientador} admite um parâmetro \emph{opcional}
+  que descreve o que vai aparecer no lugar da palavra ``Orientador:'', que é
+  o padrão (mude, por exemplo, caso tenha orientadora ou orientadores). Se
+  o parâmetro opcional não for usado, 
+  usa-se ``\texttt{Orientador:\bs vspace\ac1mm\fc\bs\bs}''. Se
+  você desejar esta palavra e o nome do orientador na mesma linha, omita a
+  quebra de linha (\texttt{\bs\bs}). Se você usar
+  \texttt{\bs orientador[]\ac\textit{nome do orientador}\fc} somente o nome
+  do orientador aparecerá. Esses comentários se aplicam de modo análogo ao
+  comando \texttt{\bs coorientador}.
+
+\item Se você deseja colocar mais de uma linha no comando
+  \texttt{\bs instituicao}, separe as linhas com o comando \texttt{\bs par},
+  como no exemplo
+  
+  \verb'\instituicao{Universidade de São Paulo\par'\\
+  \verb'     Instituto de Ciências Matemáticas e de Computação}'
+
+\item É possível alterar todas as fontes na folha de rosto. Veja
+  a seção~\ref{subsubsec: fontes da folha de rosto}.
+
+\end{itemize}
+
+
+\subsection{Folha de rosto personalizada}
+\label{subsec: folha de rosto personalizada}
+
+Se o comando \texttt{\bs folhaderosto} não é aplicável para sua
+necessidade, você pode fazer sua própria folha de rosto
+personalizada. Escreva o texto da sua folha de rosto dentro do ambiente
+\texttt{titlepage}. Se usar este ambiente, a numeração das páginas se
+manterá correta\footnote{A folha de rosto é contada na numeração no estilo
+  \abnt{}, mas não em outros estilos.}. Um exemplo simples:
+
+\begin{verbatim}
+% Folha de rosto sem o uso de \folhaderosto
+\begin{titlepage}
+ \vfill
+ \begin{center}
+   {\large Autor} \\[5cm]
+   {\Huge Título da minha dissertação}\\[1cm]
+   \hspace{.45\textwidth} % posicionando a minipage
+   \begin{minipage}{.5\textwidth}
+     \begin{espacosimples}
+       Dissertação apresentada na Universidade Tal para a
+       obtenção do título de mestre em ...
+     \end{espacosimples}
+   \end{minipage}
+   \vfill
+   Maio de 2002
+ \end{center}
+\end{titlepage}
+\end{verbatim}
+
+\noindent Estes comentários valem para a capa, também feita com o
+ambiente \texttt{titlepage}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Folha de aprovação}
+
+A norma \cite{NBR14724:2001} não determina a formatação exata da folha
+de aprovação. Diz apenas que é elemento obrigatório, deve conter autor,
+título por extenso e subtítulo, se houver, local e data de aprovação, nome,
+assinatura e instituição dos membros componentes da banca examinadora. Não
+está incluída nas excessões de tamanho de fonte ou espaçamento entrelinha,
+portanto a fonte é 12pt em espaçamento um e meio.
+
+Para facilitar a montagem da folha de aprovação, que exige espaço simples,
+introduzimos o ambiente \texttt{folhadeaprovacao} e o comando
+\texttt{\bs assinatura\ac\textit{nome da pessoa}\fc}, que desenha a linha de
+assinatura. Um exemplo de folha de aprovação:
+
+\begin{verbatim}
+  \begin{folhadeaprovacao}
+    Tese de Doutorado sob o título \textit{``Quem veio primiro,
+    o ovo ou a galinha?''}, defendida por Zé do Bode e aprovada
+    em 29 de fevereiro de 2002, em Santo Antônio do Aracanguá,
+    Estado de São Paulo, pela banca examinadora constituída pelos
+    doutores:
+    \assinatura{Prof. Dr. Fulado de Tal \\ Orientador}
+    \assinatura{Prof. Dr. Cicrano de Tal \\ Universidade de
+      Mariápolis}
+    \assinatura{Prof. Dr. Beltrano de Tal \\ Universidade
+      de Vicentinópolis} 
+  \end{folhadeaprovacao}
+\end{verbatim}
+
+\subsection*{Mais sobre o comando  \texttt{\bs assinatura}}
+
+O comprimento da linha é ajustado pelo comprimento
+\texttt{\bs ABNTsignwidth}, que é 8~cm inicialmente. A grossura da linha é
+dada pelo comprimento \texttt{\bs ABNTsignthickness}, que é \texttt{0pt}
+por padrão. O espaço vertical deixado para a assinatura é
+\texttt{\bs ABNTsignskip}, 2,5~cm por padrão. O comando
+\texttt{\bs assinatura} produz a linha de assinatura centralizada. Se você
+não desejar isso, use a versão ``estrelada'' do comando e posicione por sua
+conta.
+
+Por exemplo, suponha que se você prefere uma linha traçada, com apenas 2~cm
+entre as linhas de assinatura e mais próximo da margem esquerda. Então
+esperimente isso: 
+
+\begin{verbatim}
+\setlength{\ABNTsignthickness}{0.4pt}
+\setlength{\ABNTsignskip}{2cm}
+
+\hspace*{1cm}
+\assinatura*{Prof. Dr. Fulano de Tal\\ Orientador}
+\hspace*{1cm}
+\assinatura*{Prof. Dr. Cicrano de Tal\\ Universidade de Mariápolis} 
+\hspace*{1cm}
+\assinatura*{Prof. Dr. Beltrano de Tal\\ Univ. de Vicentinópolis} 
+\end{verbatim}
+
+Você notará que as assinaturas ficarão mais proximas da margem, mas ainda
+continuarão alinhadas ao centro entre si.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Resumo e abstract}
+
+A norma dita que o resumo e o abstract são em espaçamento simples. Está
+escrito em \cite[51]{NBR14724:2001} que as \emph{únicas} estruturas com
+fonte em tamanho menor são as citações longas e as notas de rodapé, ou
+seja, o resumo e o abstract \emph{não} estão incluídos nessa regra.
+
+Use os ambientes \texttt{resumo} e \texttt{abstract} (nesta ordem) para a
+correta formatação do texto. Exemplo:
+
+\begin{verbatim}
+\begin{resumo}
+  Escreva aqui o texto de seu resumo...
+\end{resumo}
+
+\begin{abstract}
+  Write here the English version of your `Resumo'...
+\end{abstract}
+\end{verbatim}
+
+Se o resumo em língua estrangeira não é em inglês, basta redefinir o
+comando \texttt{\bs ABNTabstractname} para Resumen (castelhano) ou Résumé
+(francês). Exemplo:
+
+\noindent\texttt{\bs renewcommand\ac\bs ABNTabstractname\fc\ac Resumem\fc}
+
+
+\section{Lista de símbolos, siglas, etc}
+
+É possível o uso de uma listas de símbolos, siglas ou abreviações. Essas
+listas devem aparecer após o sumário, mas ainda na parte pré-textual,
+seguindo o esquema de numeração da parte pre-textual. Um comando 
+\texttt{\bs chapter*\ac\textit{nome da lista}\fc} não funcionaria, já que a
+classe interpreta esse capítulo não numerado como estando na parte
+textual. Então criamos um comando para pôr um capítulo (sem numeração) na
+parte pre-textual: \par 
+
+{\setlength{\parindent}{0cm}\setlength{\parskip}{0cm}
+\ttfamily\ \ \bs pretextualchapter\ac\textit{nome da lista}\fc
+\par\ \ \ \ 
+\textit{código da sua lista de símbolos ou siglas...}
+}
+
+\textbf{Obs.:} O \LaTeX{} oferece a
+possibilidade de se montar a lista de símbolos de maneira mais automática,
+mais ou menos do mesmo modo como se faz sumário, sem a necessidade de fazer à
+mão. A título de exemplo, colocamos um maneira de fazer sua lista.
+Isto não ordenará as entradas, o que está de acordo com a norma (ver item
+\itemnorma{lista de símbolos} da
+seção~\ref{subsubsec: elementos pre-textuais}). Aqui, o comando
+\texttt{\bs simb} imprime o símbolo no texto e na lista de símbolos, e o
+comando \texttt{\bs listadesimbolos} imprimirá a lista.
+
+
+\begin{verbatim}
+% *****  Definição da Lista de Símbolos  *****
+
+% \simb[entrada na lista de símbolos]{símbolo}: 
+%   Escreve o simbolo no texto e uma entrada na Lista de Símbolos.
+%   Se o parâmetro opcional é omitido, usa-se o parâmetro obrigatório.
+\newcommand{\simb}[2][]{%
+  \ifthenelse{\equal{#1}{}}
+    {\addcontentsline{los}{simbolo}{\ensuremath{#2}}}
+    {\addcontentsline{los}{simbolo}{#1}}
+  \ensuremath{#2}}
+
+\makeatletter % para aceitar comandos com @ (at) no nome
+
+% \listadesimbolos:  comando que imprime a lista de simbolos
+\newcommand{\listadesimbolos}{
+  \pretextualchapter{Lista de Símbolos}
+  {\setlength{\parindent}{0cm}
+   \@starttoc{los}}}
+
+% como a entrada será impressa
+\newcommand\l@simbolo[2]{\par #1, p.\thinspace#2} 
+
+\makeatother
+% ***** fim da Lista de Símbolos *****
+\end{verbatim}
+
+\noindent Exemplo de uso:
+
+\noindent
+\verb+\newcommand{\R}{\mathds{R}}  % usando o pacote `dsfont'+\\
+\verb'\newcommand{\Cinf}{\mathcal{C}^\infty}'\\
+\verb'\newcommand{\Cinfc}{\Cinf_c}'
+
+\hspace*{1cm} no texto
+
+\noindent\verb'... seja \simb{\R^n} o espaço euclidiano $n$-dimencional...'\\
+\verb'... $\phi\in \simb[$\Cinfc$ (funções $\Cinf$ de suporte'\\
+\verb'  compacto)]{\Cinfc}$'
+
+
+\noindent produziria as seguintes entradas na lista de símbolos:
+
+
+\newcommand{\simb}[2][]{\ifthenelse{\equal{#1}{}}
+{\addcontentsline{los}{simbolo}{\ensuremath{#2}}}
+{\addcontentsline{los}{simbolo}{#1}}}
+
+\newcommand{\R}{\mathds{R}}
+\newcommand{\Cinf}{\mathcal{C}^\infty}
+\newcommand{\Cinfc}{\Cinf_c}
+
+\medskip
+
+\simb{\R^n}
+\simb[$\Cinfc$ (funções $\Cinf$ de suporte compacto)]{\Cinfc}
+
+\makeatletter
+\newcommand\l@simbolo[2]{\par #1, p.\thinspace#2} 
+\medskip
+{\setlength{\parskip}{0cm}\setlength{\parindent}{0cm}
+  \@starttoc{los}\par}
+\makeatother
+
+\section{Anexos e apêndices}\label{subsec: anexos e apendices}
+
+Apêndices consistem em um texto ou documento \emph{elaborado pelo autor}, a
+fim de complementar sua argumentação, sem prejuízo da unidade nuclear do
+trabalho. Anexos consistem em um texto ou documento \emph{não elaborado
+  pelo autor}, que serve de fundamentação, comprovação e ilustração
+\cite[4.3.2 e 4.3.3]{NBR14724:2001}. 
+
+Quando forem começar os apêndices, use o comando \texttt{\bs apendice}, e
+agora cada comando \texttt{\bs chapter} gerará uma entrada de apêndice. O
+mesmo com anexos, mas use o comando \texttt{\bs anexo} na ocasião do início
+dos anexos.
+\begingroup\small
+
+\noindent
+\texttt{\bs apendice}\\
+\texttt{\bs chapter\ac\textit{Primeiro apêndice}\fc}\\
+\texttt{\bs chapter\ac\textit{Segundo apêndice}\fc}
+
+\endgroup
+
+ou
+
+\begingroup\small
+
+\noindent
+\texttt{\bs anexo}\\
+\texttt{\bs chapter\ac\textit{Primeiro anexo}\fc}\\
+\texttt{\bs chapter\ac\textit{Segundo anexo}\fc}
+
+\endgroup
+
+Como a boa formatação dessas partes poderá depender do caso particular,
+colocamos comandos que personalizam os títulos dessas partes, descritos na
+seção~\ref{subsec: format anexo apendice}.
+
+\textbf{Obs.:} O comando \texttt{\bs chapter*}
+continua funcionando da mesma maneira.
+
+\section{Índice remissivo}
+
+Você pode fazer seu índice remissivo com o programa
+\MakeIndex{}. Este coleciona as entradas do seu índice no arquivo
+\texttt{\textit{<nome-do-arquivo>}.idx}. Então é necessário rodar o
+programa \MakeIndex{} para ordenar as entradas, produzindo um arquivo
+com o nome \texttt{\textit{<nome-do-arquivo>}.ind}, que deve ser incluído
+no seu documento com
+\texttt{\bs input\ac\textit{<nome-do-arquivo>}.ind\fc}. Isto produzirá seu
+índice remissivo. A novidade é que ele se auto-incluirá no sumário e as
+colunas serão balanceadas, o que não acontecia com a classe \report. Se
+você não quiser o índice com colunas balanceadas, acrescente no cabeçalho o
+comando \texttt{\bs IndiceNaoBalanceado}.
+
+\textbf{Obs.:} Freqüentemente, quando se usa o
+\MakeIndex{} com línguas que possuem acentos ortográficos (como em nossa
+língua portuguesa), aparecem problemas de ordenação de palavras, já que ele 
+ordena de acordo como está \emph{literalmente} escrito. Por exemplo, a palavra
+``átomo'': o comando \texttt{\bs index\ac átomo\fc} transforma, pelo pacote
+\texttt{inputenc}, \texttt{átomo} em \texttt{\bs'atomo}), implicando que
+palavra é vista pelo \MakeIndex{} como se começasse por um
+símbolo, não começando pela letra A. As palavras ``cabana''
+e ``caçador'' apresentam ordem alafabética trocada depois do
+\MakeIndex{}, porque ele as vê como \texttt{cabana} e
+\texttt{ca\bs c cador} (e \texttt{\bs} (barra invertida) vem antes da letra B na ordem
+alfabética). Para solucionar esse problema, Arnaldo Mandel 
+(\htmladdnormallink{\texttt{am@ime.usp.br}}{mailto:am@ime.usp.br})
+criou um programa em Perl chamado
+\textsl{FazIndex} que faz a
+''desTeXificação'' das entradas e depois 
+roda o \MakeIndex{}, corrigindo todos esses problemas. Não importa,
+inclusive, que uma entrada tenha comandos de fonte. O \textsl{FazIndex} é
+realmente esperto. Pegue-o em
+\htmladdnormallink{\texttt{http://www.spm.pt/\~{}GUTpt/LaTeXPortugues/fazindex.html}}{http://www.spm.pt/~GUTpt/LaTeXPortugues/fazindex.html}.
+
+\chapter{Formatação}
+
+\section{Numeração das páginas}\label{subsec: numeracao das paginas}
+
+No item \itemnorma{paginação} de \ref{subsec: formas de apresentacao} está
+descrito o mecanismo segundo o qual as páginas são numeradas de acordo com as
+normas, o que não é o ``mais natural''--- alguém pode
+dizer. No padrão internacional, a numeração começa depois da 
+folha de rosto, em algarismos romanos até o sumário; na parte textual, a
+numeração começaria novamente, agora em algarismos arábicos. Democráticos,
+implementamos os dois esquemas. O esquema \abnt{} é padrão. O outro, descrito
+acima, é acionado pela opção de classe \texttt{pagestart=firstchapter}. Se você deseja
+que a classe não interfira na paginação, use a opção \texttt{pagestart=sumario}.
+
+Também, de acordo com a norma \cite{NBR6027:1989}, os números das páginas
+no sumário e lista de figuras e tabelas são precedidos pela abreviação
+``p.''. As opções de classe \texttt{tocpage=prefix} e \texttt{tocpage=plain}
+ativam e desativam, respectivamente, esse comportamento.
+
+
+\section{Cabeçalhos de página}\label{subsec: cabecalhos de paginas}
+
+De acordo com a norma, na parte pré-textual, nenhuma página apresenta
+numeração. A partir da parte textual (após o sumário em geral) a numeração
+aparece em todas as páginas, inclusive aquelas com títulos de capítulos,
+que tradicionalmente não continham cabeçalhos de página. Para sua maior
+comodidade, implementamos as seguintes opções de classe:
+
+\def\descrtype{descriptiontt}
+\begin{description}
+
+\item[header=plain]\ \\
+  O número da página aparece no canto superior direito da folha. É padrão
+  \abnt{}, e portanto padrão.
+
+\item[header=normal]\ \\
+  Além do número da página no canto superior direito, aparece o
+  nome da seção no canto superior esquerdo. Se a impressão é frente e
+  verso, nas páginas pares (verso da folha), o nome das capítulos aparece
+  no cabeçalho da página.
+
+\item[header=ruled]\ \\
+  O mesmo que \texttt{header=normal}, mas com uma linha sublinhando o cabeçalho.
+
+\item[header=no]\ \\
+  Aplica-se o estilo padrão do \LaTeX, com a numeração no pé da página.
+
+\end{description}
+
+Outra alternativa é usa o pacote
+\texttt{fancyhdr}\footnote{Pacote para configurar
+  estilos de página (cabeçalho e roda-pé)} e alterar os estilos de página adequados: 
+
+
+\begin{itemize}
+
+\item O estilo de página dos títulos de capítulos é sempre
+  \texttt{header=plain} .
+
+\item Com excessão de \texttt{header=no}\footnote{A opção
+    \texttt{header=no} que ativa o estilo de página \texttt{plain} para
+    todas as folhas.}, cada opção dada acima aplica às
+  outras páginas o estilo de página (\verb+\pagestyle+) de \emph{mesmo
+    nome}. 
+
+\end{itemize}
+
+
+Uma forma de usar isso é chamar a classe com a opção \texttt{header=normal} e
+redefinir com os comandos do \texttt{fancyhdr} os estilos de página
+\texttt{header=plain} e \texttt{header=normal}.
+
+\section{Título de capítulos e seções}
+
+Leia os items \itemnorma{numeração das seções} em
+\ref{subsec: formas de apresentacao} e \itemnorma{seções} em
+\ref{subsec: outras normas}. Isso é o que foi implementado. A
+tipografia dos capítulos ser em negrito e em itálico foi decidida baseado
+no livro \cite{desktop-publishing}, sobre tipografia. Leia a
+seção~\ref{subsubsec: fontes de titulos de secoes} para personalizar a
+fonte em que são impressos os títulos dos capítulos e seções (isto inclui
+títulos em maiúsculas).
+
+\section{Título de anexos e apêndices}
+   \label{subsec: format anexo apendice}
+   
+Se foram criados esses comandos para formatar o título de anexos e
+apêndices, é por que não fiquei satisfeito com o resultado oferecido,
+que é exigido pela norma ou insinuado por seus exemplos. Ficará então a
+critério do usuário decidir a sua formatação, já que o resultado varia
+muito caso a caso, dependendo por exemplo do comprimento dos nomes dos
+apêndices ou anexos.
+
+O que está escrito na norma é que anexos e apêndices são identificados por
+letras maiúsculas consecutivas, travessão e pelo título. Veja o exemplo
+dado no texto original da norma NBR 14724 (com tamanho de fonte fiel ao
+original):
+
+\par
+
+\noindent ANEXO A - Representação
+  gráfica de contagem de células inflamatórias presentes nas caudas em
+  regeneração - Grupo de controle I\\
+
+Apesar deste exemplo dar a entender, o texto da norma não diz que a palavra
+``ANEXO'' tem que aparecer, nem que tenha que ser em maiúsculas, e nem que
+se ocorrer quebra de linha no título, a próxima linha deve ser alinhada com
+o início do título. As opções de classe 
+\texttt{appendix=titlebox} e \texttt{appendix=NAME}, que são todas
+padrão, fazem como sugere o exemplo.
+
+Pessoalmente, não aprecio o estilo do exemplo acima, que em fontes
+grandes, normais de títulos, ficaria absurdamente desproporcional.
+Experimente rodar o título de anexo acima com a classe ABNT. Dependendo da
+conveniência, sinta-se livre para alterar o que quiser em prol de seu texto.
+
+%{\Large\itshape\bfseries
+
+%\noindent ANEXO A\latexhtml{%
+%  \settowidth{\Manualauxiliar}{ANEXO A -$\!$- } -$\!$-
+%  \parbox[t]{\textwidth-\Manualauxiliar-1ex}{ \raggedright
+%    Representação gráfica de contagem de células inflamatórias presentes
+%    nas caudas em regeneração -$\!$- Grupo de controle I\par}}{ -
+%  Representação gráfica de contagem de células inflamatórias presentes nas
+%  caudas em regeneração - Grupo de controle I}\\
+
+%}
+
+A opção \texttt{appendix=noname} faz com que os títulos sejam iguais aos dos
+capítulos (mas a numeração será em algarismos romanos maiúsculos). A opção
+\texttt{anapnormal} desativa o maiúsculo das palavras ``anexo'' e
+``apêndice'' nos indicativos. A opção \texttt{appendix=nobox} faz com que
+o tamanho da indentação das linhas após a primeira seja
+\texttt{\bs ABNTanapindent}, que pode ser alterado com
+\texttt{\bs setlength}.
+
+O travessão no título é dado pelo comando \texttt{\bs ABNTtravessao}.
+Então, se você quiser se livrar dele, pode redefinir esse comando para ser
+um espaço, por exemplo. É possível também alterar a qualquer momento o
+tamanho da fonte, bastando redefinir o comando \texttt{\bs ABNTanapsize},
+que por padrão é \texttt{\bs LARGE}.
+
+Também foi definido um comando que é executado logo após o indicativo
+(``Anexo A --'', por exemplo). O comando \texttt{\bs ABNTaposindicativoanap}
+permite muita flexibilidade. Vejamos alguns exemplos:
+
+\begin{itemize}
+\item Para título com ``Anexo A'' em uma linha e o título em outra,
+  ambos alinhados à esquerda, use a opção de classe
+  \texttt{appendix=nobox} e inclua 
+\begin{verbatim}
+\renewcommand{\ABNTtravessao}{}
+\setlength{\ABNTanapindent}{0cm}
+\renewcommand{\ABNTaposindicativoanap}{\protect\\[4mm]}
+\end{verbatim}
+
+\item Para título com ``Anexo A'' em uma linha, alinhado à esquerda, e o
+  título em outra, centralizado, use a opção de classe
+  \texttt{appendix=nobox} e inclua 
+\begin{verbatim}
+\renewcommand{\ABNTtravessao}{}
+\setlength{\ABNTanapindent}{0cm}
+\renewcommand{\ABNTaposindicativoanap}
+                    {\protect\\[4mm]\protect\centering}
+\end{verbatim}
+\item Para algo similar aos anteriores, mas com tudo centralizado (o que
+  distoa dos títulos dos capítulos \abnt{}), use a opção de classe
+  \texttt{appendix=nobox} e inclua 
+\begin{verbatim}
+\renewcommand{\ABNTtravessao}{}
+\setlength{\ABNTanapindent}{0cm}
+\renewcommand{\ABNTaposindicativoanap}
+                    {\protect\centering\protect\\[4mm]}
+\end{verbatim}
+
+\end{itemize}
+
+O usuário pode criar o estilo que quiser.
+
+\section{Espaçamento entrelinhas}\label{subsec: espacamento entrelinhas}
+
+A norma pede que o texto seja digitado com {1,5} de  espaço entrelinhas. Se 
+isso não for corretamente tratado, a aparência final do seu trabalho ficará
+comprometida. A solução usual --- apenas alterar o valor do comando
+\texttt{\bs baselinestretch} --- estica \emph{todos} os espaçamentos
+verticais como espaços relacionados a figuras e tabelas, demasiado
+espaçamento em equações em destaque, notas de rodapé, etc. Por esse motivo,
+optamos por usar o pacote \texttt{setspace}, que dá o correto tratamento a
+essa questão e está presente na maioria das distribuições \LaTeX{} recentes. 
+A ausência desse pacote causará uma mensagem de aviso
+(\negthinspace\ingles{warning}). Se esse for o seu caso, basta procurar
+pelo pacote na CTAN\footnote{Comprehensive \TeX{} Archive Network
+  (\htmladdnormallink{\texttt{www.ctan.org}}{http://www.ctan.org}):\
+  repositório na internet dos arquivos relacionados a \TeX.}, instalá-lo ou
+simplesmente colocar o arquivo \texttt{setspace.sty} no mesmo diretório do
+seu documento. Fácil, não? Se você não quiser usar o pacote, apenas ignore
+o \ingles{warning} e uma solução adaptada será adotada.
+
+
+
+\subsection*{Ambientes \texttt{espacosimples}, \texttt{espacoememeio} e  \texttt{espacoduplo}} 
+
+A idéia é não se preocupar com o espaçamento entrelinhas. No entanto,
+deixamos disponíveis ambientes e comandos para acertar o espaçamento
+entrelinhas, se desejado. Fortemente desencorajamos alterar o espaçamento
+redefinindo o comando \texttt{\bs baselinestretch}. 
+
+Para alterar o esquema de espaçamento durante o texto, utilize um desses
+ambientes. Por exemplo, para deixar uma parte do texto com espaçamento
+simples, use: 
+\begin{verbatim}
+\begin{espacosimples}
+  Texto extenso... (que pode ter vários parágrafos)
+\end{espacosimples}
+\end{verbatim}
+
+\subsection*{O comando {\bs espaco\ac\textit{palavra ou número}\fc}}
+
+O parâmetro desse comando pode ser as palavras \texttt{simples},
+\texttt{umemeio} ou \texttt{duplo}, para que os espaçamentos sejam feitos
+de acordo com a classe, ou um \emph{número decimal} (como \texttt{1.7}),
+que é o fator pelo qual é multiplicado a distância entre duas
+linhas. Prefira esse comando a redefinir o comando
+\texttt{\bs baselinestretch}. O espaçamento selecionado é válido apenas
+dentro do grupo ou ambiente. Por exemplo, use como em: 
+
+\begin{verbatim}
+{\espaco{simples}
+Texto... (que pode ter vários parágrafos)
+}
+\end{verbatim}
+
+%Resumindo:
+%\begin{itemize}
+
+%\item Use os ambientes\\
+%  \hspace*{1.3em}\texttt{\bs begin\ac espaco=simples\fc} \ldots 
+%  \texttt{\bs end\ac espaco=simples\fc}\\  
+%  \hspace*{1.3em}\texttt{\bs begin\ac espaco=umemeio\fc} \ldots
+%  \texttt{\bs end\ac espaco=umemeio\fc}\\ 
+%  \hspace*{1.3em}\texttt{\bs begin\ac espaco=duplo\fc} \ldots \texttt{\bs end\ac
+%    espaco=duplo\fc}\\
+%  para alterar localmente o  espaçamento.
+
+%\item Se quiser usar outro espaçamento, não mude o espaçamento entrelinhas
+%  redefinindo o \texttt{\bs baselinestretch}. Em vez disso, use o comando
+%  \texttt{\bs espaco}.
+
+%\end{itemize}
+
+
+\section{Citações longas}\label{subsec: citacoes longas}
+
+Uma citação longa (mais de 3 linhas) deve vir em parágrafo separado, com
+recuo de \emph{4~cm} da margem esquerda, em fonte menor, sem as aspas
+\cite[4.4]{NBR10520:2001} e com espaçamento simples
+\cite[5.3]{NBR14724:2001}. 
+
+Uma regra de como fazer citações em geral não é simples. É prudente ler
+\cite{NBR10520:2001} se você optar for fazer uso freqüente de
+citações. Para satisfazer às exigências tipográficas que a norma pede para
+citações longas, use o ambiente \texttt{citacao}.
+
+Um exemplo prático --- extraído do texto original da norma NBR 10520
+exatamente como está lá --- como é digitado e seu respectivo resultado: 
+
+\begin{verbatim}
+\begin{citacao}
+  A teleconferência permite ao indivíduo participar de um encontro
+  nacional ou regional sem a necessidade de deixar seu local de
+  origem. Tipos comuns de teleconferênia incluem o uso da televisão,
+  telefone e computador. Através de áudio conferência, utilizando
+  a companhia local de telefone, um sinal de áudio pode ser emitido
+  em um salão de qualquer dimensão \cite[p.~181]{Nicholis}.
+\end{citacao}
+\end{verbatim}
+
+\begin{citacao}
+A teleconferência permite ao indivíduo participar de um encontro nacional
+ou regional sem a necessidade de deixar seu local de origem. Tipos comuns
+de teleconferênia incluem o uso da televisão, telefone e
+computador. Através de áudio conferência, utilizando a companhia local de 
+telefone, um sinal de áudio pode ser emitido em um salão de qualquer
+dimensão \cite[p.~181]{Nicholis}.
+\end{citacao}
+
+\section{Fontes} \label{subsec: fontes}
+
+\subsection{Fontes do título de capítulos e seções}
+   \label{subsubsec: fontes de titulos de secoes}
+   
+A fonte com que os capítulos é impressa é dado pelo comando
+\texttt{\bs ABNTchapterfont}. O comando \texttt{\bs ABNTchaptersize} altera
+o tamanho da fonte dos capítulos. A fonte com que as seções são impressas é
+dada pelo comando \texttt{\bs ABNTsectionfont}. O
+\texttt{\bs tocpage=prefixchapterfont} dá a fonte em que os capítulos são
+apresentados no sumário.
+
+Originalmente, o \texttt{\bs ABNTchapterfont} é
+\texttt{\bs bfseries\bs itshape}. Essa escolha particular foi motivada pelo 
+livro \cite{desktop-publishing}, e particularmente acho um estilo bonito e
+elegante. O tamanho padrão, dado por \texttt{\bs ABNTchaptersize}, é
+\texttt{\bs huge}.  Por sua vez, o \texttt{\bs ABNTsectionfont} é definido
+originalmente por \texttt{\bs bfseries}. Inicialmente, o comando 
+\texttt{\bs tocpage=prefixchapterfont} é \texttt{\bs ABNTchapterfont\bs upshape},
+para acompanhar a fonte do capítulo em primeria instância. 
+
+O usuário pode sentir-se livre para alterar tais comandos a vontade para
+gerar os capítulos e seções da maneira que quiser. No entanto é prudente
+não adicionar comandos de tamanho de fonte, como \texttt{\bs large},
+por exemplo. Isto é porque o mesmo comando pode ser usado pelos vários
+níveis de seccionamento. A fonte do \texttt{\bs section} é a mesma que a do
+\texttt{\bs subsection}, e assim por diante.
+
+Se você quer títulos de capítulos e/ou seções em
+MAIÚSCULAS, o que é um
+recurso \emph{disponível}, e não obrigatório, use as opções
+de classe \texttt{chapter=TITLE} e \texttt{section=TITLE}, respectivamente. Assim você
+não precisará escrever tudo em maiúsculas, e poderão aparecer em caixa
+normal no sumário, por exemplo. A norma \emph{não diz} em nenhum momento
+que os itens do sumário devem ter a mesma fonte dos títulos. Apenas está
+dito que a hierarquia do seccionamento deve ser destacada na tipografia, o
+que é o caso.
+
+\textbf{Obs.~1:} Se você
+vai usar maiúsculas em algum dos títulos, considere usar alguma fonte que
+não seja \emph{extendida} (muitas das fontes em negrito normais são), ou o
+texto poderá ficar muito largo, mesmo com poucas palavras, perdendo o
+título sua beleza. Muitas outras opções de fonte, além das citadas a
+seguir, estão disponiveis em \LaTeX.
+
+\begin{itemize}
+
+\item {\fontseries{b}\selectfont Computer Modern
+  Bold}\footnote{{\fontseries{b}\selectfont Computer Modern Bold} é dada
+  por
+\texttt{\bs fontfamily\ac cmr\fc\bs fontseries\ac b\fc\bs selectfont}.}. Compare-a com a negrito standard do \LaTeX, a {\bfseries
+  Computer Modern Bold Extended}, dada pelo \texttt{\bs bfseries}.
+
+\item {\sffamily\fontseries{sbc}\selectfont Computer Modern
+  Sans Serif Semibold
+  Condensed}\footnote{{\sffamily\fontseries{sbc}\selectfont CM Sans Serif
+    Semibold Condensed} via
+\texttt{\bs fontfamily\ac cmss\fc\bs fontseries\ac sbc\fc\bs selectfont}.} (a usada nos títulos desse
+manual). Compare-a com a {\sffamily\bfseries Computer Modern Bold
+  Extended}, selecionada pelos comandos \texttt{\bs sffamily\bs bfseries}.
+
+\item Outra boa opção é a {\fontfamily{ptm}\bfseries
+\selectfont Times Roman Bold}\footnote{{\fontfamily{ptm}\bfseries
+\selectfont  Times Roman Bold} é dada por 
+\texttt{\bs fontfamily\ac ptm\fc\bs bfseries\bs selectfont}.}, disponível
+também nas versões  
+{\fontfamily{ptm}\fontseries{b}\fontshape{it}\selectfont itálico}%
+\footnote{{\fontfamily{ptm}\bfseries\itshape\selectfont 
+    Times Roman Bold Italic} é dada por
+\texttt{\bs fontfamily\ac ptm\fc\bs bfseries\bs itshape\bs selectfont}.}
+ e {\fontfamily{ptm}\fontseries{b}\fontshape{sl}
+\selectfont  obliquo}%
+\footnote{{\fontfamily{ptm}\bfseries\slshape\selectfont 
+    Times Roman Bold Slanted} é dada por
+\texttt{\bs fontfamily\ac ptm\fc\bs bfseries\bs slshape\bs selectfont}.}.
+
+\item {\fontfamily{phv}\fontseries{bc}\selectfont Helvetica
+  Narrow Bold}\footnote{{\fontfamily{phv}\fontseries{bc}\selectfont
+    Helvetica Narrow Bold} é dada por
+\texttt{\bs fontfamily\ac phv\fc\bs fontseries\ac bc\fc\bs selectfont}.}.
+  Outra opção é a {\fontfamily{phv}\bfseries\selectfont 
+  Helvetica Bold}\footnote{{\fontfamily{phv}\bfseries\selectfont
+    Helvetica Bold} é dada por
+\texttt{\bs fontfamily\ac phv\fc\bs bfseries\bs selectfont}.}.
+
+
+\end{itemize}
+
+
+\textbf{Obs. 2:} Se você quer
+fontes sans serif nos títulos de capítulos e seções, tente a seguinte
+sugestão: use as fontes normais do \LaTeX{} (Computer Modern), acrescente a
+opção \texttt{chapter=TITLE} e, antes do 
+\texttt{\bs begin\ac document\fc}, acrescente
+\begingroup\small
+\begin{verbatim}
+\renewcommand{\ABNTchapterfont}{\bfseries\sffamily\fontseries{sbc}\selectfont}
+\renewcommand{\ABNTsectionfont}{\bfseries\sffamily}
+\end{verbatim}
+\endgroup
+
+O \texttt{\bs bfseries} dentro da redefinição do
+\texttt{\bs ABNTchapterfont} é somente para que o \ingles{auto bold math}
+funcione, já que o título é em negrito.
+
+
+\subsection{Opção de classe times}
+
+Se você deseja utilizar a fonte {\fontfamily{ptm}\selectfont Times Roman},
+que é uma fonte bonita, pode adicionar a opção \texttt{font=times}, e a classe
+tentará executar isso para você, tentando primeiro os melhores pacotes. Se
+o pacote \texttt{mathptmx} estiver presente (a maioria dos casos), o modo
+matemático também será em {\fontfamily{ptm}\selectfont Times}. A
+desvantagem é que não existe uma versão em negrito para os símbolos, e por
+isso não há modo matemático em negrito. No entanto, pessoalmente acho que
+as fontes Computer Modern (originais do \LaTeX) são de excelente qualidade
+e compensa usá-las.
+
+\subsection{Fontes da folha de rosto}
+\label{subsubsec: fontes da folha de rosto}
+
+Você pode escolher livremente a fonte com que cada item da folha de rosto
+é impresso. Cada um dos comandos da folha de rosto (que coletam dados), como
+\texttt{\bs autor}, \texttt{\bs titulo}, etc,  possui um comando que define
+sua formatação, e esse comando tem a seguinte lei de formação:
+\texttt{\bs\textit{<comando>}format}. Por exemplo, para escrever o título,
+usa-se fonte no tamanho \texttt{\bs LARGE}, no mesmo estilo dos títulos dos
+capítulos. Portanto o comando \texttt{\bs tituloformat} original é dado por
+\texttt{\bs LARGE\bs ABNTchapterfont}. 
+Mude isso com o \texttt{\bs renewcommand}, por exemplo 
+
+\texttt{\bs renewcommand\ac\bs tituloformat\fc\ac\bs huge\bs bfseries\fc} 
+
+\noindent para ter o título em \texttt{\bs huge} e só em negrito.
+
+\newsavebox{\fnrelsize}
+
+%Outro exemplo: se seu título tem subtítulo, você pode marcar a hierarquia
+%com um comando de fonte \emph{dentro} do próprio comando \texttt{\bs titulo}.
+%Por exemplo, se você usar o pacote 
+%\textit{\texttt{relsize}}\latexhtml{\savebox{\fnrelsize}{\footnotemark}\usebox{\fnrelsize}%
+%\footnotetext{Para mudança de tamanho relativamente ao tamanho   da fonte
+%  atual.}}{\footnote{Para mudança de tamanho relativamente ao tamanho   da fonte
+%  atual.}}, você pode experimentar algo como 
+
+%\texttt{\bs titulo\ac Equações algébricas:\ \bs smaller teoria básica e
+%  aplicações\fc}  
+
+
+\subsection{Fontes do cabeçalho de página}
+
+O esquema de cabeçalho de página descrito na 
+seção~\ref{subsec: cabecalhos de paginas} também apresenta alguma
+flexibilidade nas fontes. 
+
+\begin{itemize}
+
+\item A fonte em que o número da página será impresso é dado pelo comando
+  \texttt{\bs thepageformat}, que por padrão é \texttt{\bs small}.
+\item A fonte do nome do capítulo (marca esquerda, que só é usada em
+  impressão frente e verso) é
+  \texttt{\bs leftmarkformat}, inicialmente definida como
+  \texttt{\bs itshape}. 
+\item A fonte do nome da seção (marca direita) é 
+  \texttt{\bs rightmarkformat}, sendo por padrão
+  \texttt{\bs small\bs itshape}.
+
+\end{itemize}
+
+\bibliography{normas,abnt-classe-doc,abntex-doc}
+
+\apendice
+
+\chapter{Um resumo das normas}\label{sec: um resumo das normas}
+
+Fica muito difícil formatar um texto acadêmico
+sem um conhecimento básico do conteúdo da norma. Vamos portanto apresentar
+um resumo de alguns conceitos da norma NBR 14724 ``Informação e
+documentação -- Trabalhos acadêmicos -- Apresentação'', de Julho de 2001. 
+
+{
+\smaller
+\setlength{\parskip}{0cm}
+
+
+\section{NBR 14724: estrutura e algumas descrições}
+  \label{subsec: estrutura e algumas descricoes}
+
+\cite[4]{NBR14724:2001} A estrutura de tese, dissertação ou de um
+trabalho acadêmico, compreende elementos pré-textuais, elementos textuais e
+elementos pós-textuais, que aparecem no texto na seguinte ordem:
+
+\def\descrtype{descriptionit}
+\begin{description} 
+\item[Pré-textuais]\ \\
+  Capa (obrigatório) \\
+  Folha de rosto (obrigatório) \\
+  Errata (opcional) \\
+  Folha de aprovação (obrigatório) \\
+  Dedicatória (opcional) \\
+  Agradeciomentos (opcional) \\
+  Epígrafe (opcional) \\
+  Resumo em língua vernácula (obrigatório) \\
+  Resumo em língua estrangeira (obrigatório) \\
+  Sumário (obrigatório) \\
+  Lista de ilustrações (opcional) \\
+  Lista de abreviaturas e siglas (opcional) \\
+  Lista de símbolos (opcional) 
+\item[Textuais]\ \\
+  Introdução \\
+  Desenvolvimento \\
+  Conclusão 
+\item[Pós-textuais]\ \\
+  Referências (obrigatório) \\
+  Apêndice (opcional) \\
+  Anexo (opcional) \\
+  Glossário (opcional) 
+\end{description}
+
+Algumas definições e esclarecimentos contidos na norma:
+
+
+
+\subsection{Elementos pré-textuais}\label{subsubsec: elementos pre-textuais}
+
+
+\def\descrtype{descriptionit}
+\begin{description}\setlength{\parskip}{0cm}
+\item[Capa] \cite[4.1.1]{NBR14724:2001} Obrigatório, para proteção
+  externa e sobre o qual se imprimem informações que ajudam na
+  identificação e utilização do trabalho, na \emph{seguinte ordem:}
+
+{\bf-} Nome do autor;
+
+{\bf-} Título;
+
+{\bf-} Subtítulo, se houver;
+
+{\bf-} Número de volumes (se houver mais de um, deve constar em cada capa a
+  especificação do respectivo volume);
+
+{\bf-} Local (cidade) da instituição onde deve ser apresentado;
+
+{\bf-} Ano do depósito (entrega).
+
+\item[Folha de rosto (Anverso)] \cite[4.1.2]{NBR14724:2001}
+Os elementos devem figurar na \emph{seguinte ordem:}
+
+{\bf-} Nome do autor: responsável intelectual do trabalho;
+
+{\bf-} Título principal do trabalho: deve ser claro e preciso, identificando
+  o seu conteúdo e possibilitando a indexação e recuperação da informação;
+
+{\bf-} Subtítulo: se houver, deve ser evidenciada sua subordinação ao título
+  principal, precedido de dois pontos (:);
+
+{\bf-} Número de volumes (se houver mais de um, deve constar em cada folha
+  de rosto a especificação do respectivo volume);
+
+{\bf-} Natureza (tese, dissertação e outros) e objetivo (aprovação em
+  disciplina, grau pretendido e outros); nome da instituição a que é
+  submetido; área de concentração;
+
+{\bf-} Nome do orientador e, se houver, do co-orientador;
+
+{\bf-} Local (cidade) da instituição onde deve ser apresentado;
+
+{\bf-} Ano de depósito (entrega).
+
+\item[Folha de rosto (Verso)] \cite[4.1.2]{NBR14724:2001} Deve constar
+  da ficha catalográfica, conforme o Código de Catalogação Anglo-Americano
+  -- CCAA2. 
+
+
+
+\item[Folha de aprovação] \cite[4.1.4]{NBR14724:2001} Elemento
+  obrigatório, que contem autor, título por extenso e subtítulo, se houver,
+  local e data de aprovação, nome, assinatura e instituição dos membros
+  componentes da banca examinadora. 
+
+
+\item[Dedicatória e Agradecimentos] \cite[4.1.5 e 4.1.6]{NBR14724:2001}
+  Opcionais. Os agradecimentos são dirigidos apenas àqueles que
+  contribuíram de maneira relevante à elaboração do trabalho. 
+
+\item[Resumo na língua vernácula] \cite[4.1.8]{NBR14724:2001} Elemento
+  obrigatório, que conciste na apresentação concisa dos pontos relevantes
+  de um texto; constitui-se em uma seqüência de frases concisas
+  e objetivas, e não de uma simples enumeração de tópicos, não
+  ultrapassando 500 palavras, seguido, logo abaixo, das palavras
+  representativas do conteúdo do trabalho, isto é, palavras-chave e/ou
+  descritores, conforme \cite{NBR6028:1990}.
+
+\item[Resumo em língua estrangeira] \cite[4.1.9]{NBR14724:2001} Elemento
+  obrigatório, que consiste em uma versão do resumo em idioma de divulgação
+  internacional (em inglês \ingles{Abstract}, em castelhano
+  \ingles{Resumen}, em francês \ingles{Résumé}, por exemplo). Deve ser
+  seguido das palavras representativas do conteúdo do trabalho, isto é,
+  palavras-chave e/ou descritores, na língua.
+
+\item[Sumário] \cite[4.1.10]{NBR14724:2001} Obrigatório, que
+  consiste na enumeração das principais divisões, seções e outras partes do
+  trabalho, na mesma ordem e grafia\footnote{\textsl{grafia} significa aqui
+    ``o que/como está escrito'', não referindo-se a aspectos da fonte na qual
+    o texto é impresso.} em que a matéria nele sucede, acompanhado do
+  respectivo número da página.
+
+\item[Lista de figuras e de tabelas] \cite[4.1.11]{NBR14724:2001}
+  Opcionais, elaborados de acordo com a ordem apresentada no
+  texto, com cada item acompanhado do respectivo número da
+  página. 
+
+\item[Lista de abreviaturas e siglas] \cite[4.1.12]{NBR14724:2001}
+  Opcional. Consiste na relação alfabética das abreviaturas e
+  siglas utilizadas no texto, seguidas das palavras ou expressões
+  correspondentes grafadas por extenso.
+
+\item[Lista de símbolos] \cite[4.1.13]{NBR14724:2001} Elemento opcional,
+  que deve ser elaborado de acordo com a ordem apresentada no texto, com o
+  devido significado.
+
+\end{description}
+
+% Elementos textuais
+
+\subsection{Elementos textuais}
+
+Parte do trabalho em que é exposta a matéria. Deve conter três partes
+fundamentais: introdução, desenvolvimento e conclusão.
+
+% Elementos textuais
+
+\subsection{Elementos pós-textuais}
+\label{subsubsec: elementos pos textuais}
+
+
+\def\descrtype{descriptionit}
+\begin{description}\setlength{\parskip}{0cm}
+
+\item[Apêndice] \cite[4.3.2]{NBR14724:2001} Elemento opcional, que
+  consiste em um texto ou documento \emph{elaborado pelo autor}, a fim de
+  complementar sua argumentação, sem prejuízo da unidade nuclear do
+  trabalho. Os apêndices são identificados por letras maiúsculas
+  consecutivas, travessão e pelos respectivos títulos. Exemplo:\\
+
+\par
+
+ 
+  APÊNDICE A -
+  Avaliação
+      numérica de células inflamatórias totais aos quatro dias de
+      evolução.\\[1mm]
+
+  APÊNDICE B -
+  Avaliação de células
+      musculares presentes nas caudas em regeneração.\\
+
+
+\item[Anexo] \cite[4.3.3]{NBR14724:2001} Elemento opcional, que
+  consistem em um texto ou documento \emph{não elaborado pelo autor}, que
+  serve de fundamentação, comprovação e ilustração. Os anexos são
+  identificados por letras maiúsculas consecutivas, travessão e pelos
+  respectivos títulos. Exemplo\footnote{Os exemplos apresentados aqui para
+    anexos e apêndices são os do texto original na norma NBR~14724,
+    exatamente como está lá.}:\\ 
+
+\par
+
+
+  ANEXO A -
+  Representação gráfica de contagem de células
+    inflamatórias presentes nas caudas em regeneração - Grupo de controle
+    I\\[1mm]
+
+  ANEXO B -
+  Representação gráfica de contagem de células
+    inflamatórias presentes nas caudas em regeneração - Grupo de controle
+    II\\
+
+
+\item[Glossário] \cite[4.3.4]{NBR14724:2001} Opcional, que
+  consiste em uma lista em ordem alfabética de palavras ou expressões
+  técnicas de uso restrito ou de sentido obscuro, utilizadas no texto,
+  acompanhadas das respectivas definições.
+
+\item[Índice remissivo] Nada consta sobre o índice remissivo nesta
+  norma, nem ao menos em que posição do texto este deve ser posto, quando
+  presente. Sua confecção está determinada na norma
+  \cite{NBR6034:1989}, da qual infelizmente não temos acesso até o
+  presente momento. 
+
+\end{description}
+
+
+\subsection{Formas de apresentação} \label{subsec: formas de apresentacao}
+
+\def\descrtype{descriptionit}
+\begin{description}
+
+\item[Formato] \cite[5.1]{NBR14724:2001} O texto deve estar impresso em
+  papel branco, formato A4 (21,0~cm $\times$ 29,7~cm), no anverso da folha,
+  excetuando-se a folha de rosto.
+
+\item[Projeto gráfico] \cite[5.1]{NBR14724:2001} O projeto gráfico é de
+  responsabilidade do autor. 
+
+\item[Fonte] \cite[5.1]{NBR14724:2001} Recomenda-se, para digitação, a
+  utilização de fonte de tamanho 12 para o texto e tamanho 10 para citações
+  longas e notas de rodapé.
+
+\item[Margens] \cite[5.2]{NBR14724:2001} As folhas devem apresentar
+  margem esquerda e superior a 3~cm; direita e inferior de 2~cm.
+
+\item[Espacejamento] \cite[5.3]{NBR14724:2001} Todo o texto deve ser
+  digitado com $1\, ^1\!\!/\!_2$ de entrelinhas; as citações longas,
+  as notas, as referências e os resumos em vernáculo e em língua
+  estrangeira devem ser digitados ou datilografados em espaço simples.
+
+\item[Numeração das seções] \ \\
+  \cite[5.3.2]{NBR14724:2001} O indicativo
+  numérico de uma seção precede seu título, alinhado à esquerda, separado
+  por um espaço de caracter. Nos títulos sem indicativo numérico, como
+  lista de ilustrações, sumário, resumo, referências e outros, devem ser
+  centralizados, conforme \cite{NBR6024:1989}.
+
+  \cite[5.5]{NBR14724:2001} Para evidenciar a sistematização do conteúdo
+  do trabalho, deve-se adotar a numeração progressiva para as seções do
+  texto. Os títulos das seções primárias (capítulos), por serem as
+  principais divisões do texto, devem iniciar em folha
+  distinta. Destacam-se gradativamente os títulos das seções, utilizando-se
+  os recursos de negrito, itálico ou grifo e redondo, caixa alta ou
+  versal\footnote{Em português, \textsl{caixa alta} ou \textsl{versal} é o
+    estilo em que todos os caracteres estão em MAIÚSCULAS;
+    \textsl{versalete} corresponde ao estilo \textsc{Small Capitals} do
+    inglês.}, ou outro, conforme \cite{NBR6024:1989}.
+
+\item[Paginação] \cite[5.4]{NBR14724:2001} Todas as folhas do trabalho,
+  a partir da folha de rosto, devem ser contadas seqüencialmente, mas não
+  numeradas. A numeração é colocada, a partir da primeira folha da parte
+  textual, em algarismos arábicos, no canto superior direito da folha, a
+  2~cm da borda superior, ficando o último algarismo a 2~cm da borda
+  direita da folha. No caso de o trabalho ser constituído de mais de um
+  volume, deve-se manter uma única seqüência de numeração das folhas, do
+  primeiro ao último volume. Havendo apêndice e anexo, as suas folhas devem
+  ser numeradas de maneira contínua e sua paginação deve dar seguimento à
+  do texto principal. 
+
+\item[Equações e fórmulas] \cite[5.8]{NBR14724:2001} Aparecem destacadas
+  no texto, de modo a facilitar sua leitura. Na seqüência normal do texto,
+  é permitido usar uma entrelinha maior para comportar seus elementos
+  (expoentes, índices e outros). Quando destacadas do parágrafo são
+  centralizadas e, se necessário, deve-se numerá-las. Quando fragmentadas
+  em mais de uma linha, por falta de espaço, devem ser interrompidas antes
+  do sinal de igualdade ou depois dos sinais de adição, subtração
+  multiplicação e divisão.
+  
+\item[Figuras] \cite[5.9.1]{NBR14724:2001} Qualquer que seja seu tipo
+  (gráfico, fotografia, quadro, esquema e outros), sua identificação
+  (\ingles{caption}) aparece na parte \emph{inferior} precedida da palavra
+  `Figura', seguida de seu número de ordem de ocorrência no texto em
+  algarismos arábicos, do respectivo título e/ou legenda explicativa da
+  fonte, se necessário. As legendas devem ser breves e claras, dispensando
+  consulta ao texto. Devem ser inseridas o mais próximo possível do trecho
+  a que se referem.
+  
+\item[Tabelas] \cite[5.9.2]{NBR14724:2001} Têm numeração independente e
+  consecutiva; o título (\ingles{caption}) é colocado na parte
+  \emph{superior}, precedido da palavra `Tabela' e de seu número de ordem
+  em algarismos arábicos; nas tabelas, utilizam-se fios horizontais e
+  verticais para separar os títulos das colunas no cabeçalho e fechá-las na
+  parte inferior, \emph{evitando-se} fios verticais para separar colinas e
+  fios horizontais para separar linhas; as fontes citadas, na construção de
+  tabelas, e notas eventuais aparecem no rodapé (da tabela) após o fio de
+  fechamento; caso sejam usadas tabelas reproduzidas de outros documentos,
+  a prévia autorização do autor se faz necessária, não sendo mencionada na
+  mesma; devem ser inseridas o mais próximo possível do trecho a que se
+  referem; se a tabela não couber em uma folha, deve ser continuada na
+  folha seguinte e, nesse caso, não é delimitado por traço horizontal na
+  parte inferior, sendo o título e o cabeçalho repetidos na folha seguinte.
+
+\end{description}
+
+
+\section{Outras normas} \label{subsec: outras normas}
+
+\def\descrtype{descriptionit}
+\begin{description}
+
+\item[Seções] \ \\
+  \cite[seção~2.2]{NBR6024:1989} As seções primárias são as
+  principais divisões do texto, denominadas ``capítulos''; As seções
+  primárias podem ser divididas em seções secundárias; as secundárias em
+  terciárias, e assim por diante.
+
+  \cite[seção~2.3]{NBR6024:1989} São empregados algarismos arábicos
+  na numeração; o indicativo de uma seção precede o título ou a primeira
+  palavra do texto, se não houver título, separado por um espaço; o
+  indicativo da seção secundária é constituído pelo indicativo da seção
+  primária que a precede seguido do número que lhe foi atribuído na
+  seqüência do assunto e separado por ponto. Repete-se o mesmo processo em
+  relação às demais seções; na leitura, não se lê os pontos (exemplo: 2.1.1
+  lê-se ``dois um um'')
+
+  \cite[seção~4]{NBR6024:1989} Os indicatios devem ser citados no
+  texto de acordo com os seguintes exemplos:\\
+   \dots\ na seção 4\dots\ \ \  ou \ \ \ \dots\ no capítulo 2\dots\\
+   \dots\ ver 9.2\\
+   \dots\ em 1.1.2.2 parág. 3\raisebox{1ex}{\tiny\b{o}}\ \  ou
+   \dots\ 3\raisebox{1ex}{\tiny\b{o}} parágrafo de 1.1.2.2 
+
+  \cite[seção~5]{NBR6024:1989} Os títulos das seções são destacados
+  gradativamente, usando-se racionalmente os recursos de negrito, itálico
+  ou grifo, e redondo, caixa alta ou versal, etc.; Quando a seção tem
+  título, este é colocado na mesma linha do respectivo indicativo, e a
+  matéria da seção pode começar na linha seguinte da própria seção ou em
+  uma seção subseqüente.
+
+\item[Sumário]\ \\ \cite[seção~4.1.d]{NBR6027:1989} A paginação deve vir sobre uma
+  das seguintes formas: número da primeira página (p.\thinspace ex.:
+  p.\thinspace 27); número das páginas em que se distribui o texto; número
+  das páginas extremas (p.\thinspace ex.: p.\thinspace 71--143)
+
+\item[Referências bibliográficas]\ \\ A norma \cite{NBR6023:2002} é tão
+  complicada e tão extensa (19 páginas) que a melhor forma de garantir que
+  suas referências sejam formatadas corretamente é aprendendo a usar o
+  \bibTeX{}, veja \cite{abnt-bibtex-doc,abnt-bibtex-alf-doc}.
+
+\item[Citações Textuais]\ \\ Se você vai fazer uso freqüente de citações, é melhor
+  dar uma olhada na norma \cite{NBR10520:2001}, que é um pouco
+  complexa. Você pode encontrá-la em bibliotecas de algumas
+  universidades. Dê uma lida na nossa seção~\ref{subsec: citacoes longas}.
+
+\end{description}
+
+}
+
+
+%\bibitem[CCAA2]{cod-catalog} \textit{``Código de Catalogação
+%    Anglo-Americano 2''}, ed. São Paulo: FEBAB, 1983--1985.
+
+%\bibitem[DTP]{desktop-publishing} \textit{``Desktop-Publishing on the
+%    Arquimedes: DTP for all''}\footnote{No final de 2001, este livro estava
+%    disponível em formato PDF na internet. Ainda pode ser encontrado no
+%    s
+%    \htmladdnormallink{\texttt{www.google.com}}{http://www.google.com},
+%    armazenado (\ingles{cached}) em formato HTML.}, B. Goatly, ed. Sigma,
+%  Reino Unido, 1991.
+
+%\clearpage
+%\addcontentsline{toc}{section}{\protect\numberline{}Índice Remissivo}
+%\input{\jobname.ind}
+
+
+\end{document}
+% LocalWords:  abnt cls baselineskip setspace sty default pt paper letterpaper
+% LocalWords:  documentclass landscape titlepage notitlepage leqno fleqn Adobe
+% LocalWords:  oneside twoside twoside openright openany onecolumn twocolumn
+% LocalWords:  notimes Roman mathptmx indent=all indent=firstonly

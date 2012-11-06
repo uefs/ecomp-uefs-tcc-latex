@@ -15,6 +15,15 @@ Quer ajudar!? Entre em contato conosco.
 
 # Instalando
 
+## No ShareLatex
+
+O ShareLatex é muito prático por ser um serviço de edição de arquivos TeX na nuvem.
+
+Acesse sua conta no [ShareLatex](https://www.sharelatex.com/). Clique em `New Project`, depois `Upload Zipped Project` e utilize o arquivo `sharelatex/tcc-ecomp-sharelatex.zip`.
+
+Quando o upload terminar, no campo `Root Document` selecione o arquivo `indexMonografia.tex`. Você também pode definir um nome mais amigável para o seu trabalho.
+
+
 ## No Ubuntu
 
 Estas instruções foram testadas no Ubuntu 12.04, mas devem funcionar para outras versões. Execute:
@@ -25,7 +34,7 @@ Estas instruções foram testadas no Ubuntu 12.04, mas devem funcionar para outr
 
 Todos os comandos devem ser executados como root.
 
-Primeiro, instale o repositório TexLive 2012 no seu sistema, seguindo as instruções descritas em [TexLive 2012] (http://fedoraproject.org/wiki/Features/TeXLive#TeX_Live_2012_2). 
+Primeiro, instale o repositório TexLive 2012 no seu sistema, seguindo as instruções descritas em [TexLive 2012](http://fedoraproject.org/wiki/Features/TeXLive#TeX_Live_2012_2). 
 
 Depois, instale o pacote abntex. Ele instalará todas as dependências do modelo (esta instalação baixa muitos pacotes):
 
