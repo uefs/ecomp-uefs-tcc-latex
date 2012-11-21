@@ -21,7 +21,7 @@ O ShareLatex é muito prático por ser um serviço de edição de arquivos TeX n
 
 Acesse sua conta no [ShareLatex](https://www.sharelatex.com/). Clique em `New Project`, depois `Upload Zipped Project` e utilize o arquivo `sharelatex/tcc-ecomp-sharelatex.zip`.
 
-Quando o upload terminar, no campo `Root Document` selecione o arquivo `indexMonografia.tex`. Você também pode definir um nome mais amigável para o seu trabalho.
+Após o upload terminar, aguarde alguns instantes. Na tela de `Settings`, no campo `Root Document` selecione o arquivo `indexMonografia.tex`. Após fazer isso, clique no arquivo `indexMonografia.tex` e depois volte para `Settings` e aguarde alguns instantes, para se certificar que as opções foram salvas. Você também pode definir um nome mais amigável para o seu trabalho.
 
 
 ## No Ubuntu
