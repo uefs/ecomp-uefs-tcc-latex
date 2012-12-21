@@ -17,6 +17,10 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\makeatletter
+\def\input@path{{./abntex/}}
+\makeatother
+
 \NeedsTeXFormat{LaTeX2e}
 
 \PassOptionsToClass{pagestart=firstchapter,tocpage=prefix,floatnumber=continuous}{abnt}
