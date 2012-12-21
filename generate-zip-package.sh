@@ -2,7 +2,7 @@
 # Generates zip file for use with ShareLatex.com, SpanDex.io
 # and probably any other cloud based TeX editor.
 
-ZIPFILE="tcc-ecomp-sharelatex.zip"
+ZIPFILE="tcc-ecomp.zip"
 TMP_FOLDER="tmp"
 
 # removing all temporary files
