@@ -26,9 +26,11 @@ Após o upload terminar, aguarde alguns instantes. Na tela de `Settings`, no cam
 
 ## No Ubuntu
 
-Estas instruções foram testadas no Ubuntu 12.04, mas devem funcionar para outras versões. Execute:
+Estas instruções foram testadas no Ubuntu 12.04, mas devem funcionar para outras versões. Você precisa adicionar o PPA do TexLive 2012 e instalar os pacotes necessários. Para isso, execute:
 
-    sudo apt-get install abntex texlive-latex-extra texlive-latex3
+    sudo add-apt-repository ppa:texlive-backports/ppa
+    sudo apt-get update
+    sudo apt-get install texlive texlive-latex-extra abntex
 
 ## No Fedora 17
 
