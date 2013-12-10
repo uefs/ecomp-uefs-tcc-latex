@@ -9,3 +9,4 @@
 *.toc
 indexMonografia.bbl
 indexMonografia.blg
+*.DS_Store
