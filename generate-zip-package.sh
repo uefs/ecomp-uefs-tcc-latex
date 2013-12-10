@@ -16,8 +16,7 @@ find ../ -name "*~" -type f -print | xargs rm -f
 cd $TMP_FOLDER
 
 # creating abntex subfolder
-wget http://codigolivre.org.br/frs/download.php/5337/abntex-0.9-beta2.tar.gz
-tar -zxvf abntex-0.9-beta2.tar.gz
+tar -zxvf ../abntex-0.9-beta2.tar.gz
 mkdir abntex
 
 mv abntex-0.9/texmf/bibtex/bst/abntex/* .
@@ -28,7 +27,7 @@ mv abntex-0.9/texmf/bibtex/bib/abntex/* abntex
 mv abntex-0.9/texmf/makeindex/abntex/* abntex
 mv abntex-0.9/texmf/tex/latex/abntex/* abntex
 
-rm -rf abntex-0.9*
+rm -rf abntex-0.9
 
 # copying and zipping
 
@@ -39,5 +38,5 @@ zip -9 -r ../$ZIPFILE *
 
 cd ..
 
-rm $TMP_FOLDER -rf
+rm -rf $TMP_FOLDER
 
