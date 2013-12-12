@@ -17,13 +17,9 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\makeatletter
-\def\input@path{{./abntex/}}
-\makeatother
-
 \NeedsTeXFormat{LaTeX2e}
 
-\PassOptionsToClass{pagestart=firstchapter,tocpage=prefix,floatnumber=continuous}{abnt}
+\PassOptionsToClass{pagestart=firstchapter,tocpage=prefix,floatnumber=continuous,chapter=TITLE,appendix=NAME}{abnt}
 
 \RequirePackage{ifthen}
 \RequirePackage{lastpage}
@@ -182,7 +178,7 @@
 \hspace{.35\textwidth}
 \begin{minipage}{.5\textwidth}
 	%\begin{espacosimples}
-		\esporient{\numberline {Orientador:}}{\ignorespaces\ABNTorientadordata}
+		\esporient{\numberline {Orientador: }}{\ignorespaces\ABNTorientadordata}
 	%\end{espacosimples}
 \end{minipage}
 
@@ -190,7 +186,7 @@
 	\hspace{.35\textwidth}
 	\begin{minipage}{.5\textwidth}
 		%\begin{espacosimples}
-			\espcoorient{\numberline {Co-Orientador:}}{\ignorespaces\ABNTcoorientadordata}
+			\espcoorient{\numberline {Co-Orientador: }}{\ignorespaces\ABNTcoorientadordata}
 		%\end{espacosimples}
 	\end{minipage}}
 
@@ -238,11 +234,11 @@
 		\pretextualchapter{TERMO DE APROVA\c{C}\~AO}
 		\vspace{-0.25cm}
 		\begin{center}
-			\large\ABNTautordata
+			\normalfont\ABNTautordata
 		\end{center}
 		\vspace{0.75cm}
 		\begin{center}
-			\large\ABNTtitulodata
+			%\large\ABNTtitulodata
 		\end{center}
 		\vspace{0.75cm}
 		\begin{espacosimples}
@@ -641,7 +637,7 @@
 \def\AppendToList#1{%
   \@for\next:=#1\do
   {\expandafter\let\csname List@\detokenize\expandafter{\next}\endcsname\empty}}
-\AppendToList{a,is,of,de,do,da,em,para,e,um,uma,dos,das, seu, sua, seus, suas}
+\AppendToList{a,as,o,os,is,of,de,do,da,em,para,e,um,uma,dos,das,seu,sua,seus,suas,na,nas,no,nos,ao,aos,como}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CAPITULOS
@@ -679,6 +675,7 @@
 
 %\setboolean{ABNTcapchap}{true} % deixou os títulos das seções em maiúsculo
 \setboolean{ABNTCapAnnexAppendix}{true} % nao tinha essa linha
+\renewcommand{\appendixname}{APPENDIX}
 \setboolean{ABNTpagenumstyle}{false} % nao tinha essa linha
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -781,7 +778,7 @@
 		\begin{spacing}{\taxaespacomeio}
 			\par
 		\end{spacing}
-		\centering\small{\textbf{Fonte: #1}}
+		\centering\normalsize{\textbf{Fonte: \normalfont#1}}
 	\end{flushleft}
 }
 
@@ -803,3 +800,6 @@
 
 \renewcommand{\ABNTbibliographyname}{REFER\^ENCIAS}
 
+\renewcommand{\ABNTtravessao}{}
+\setlength{\ABNTanapindent}{0cm}
+\renewcommand{\ABNTaposindicativoanap}{\protect\\[4mm]}
